@@ -1,6 +1,6 @@
 ﻿# PRE-PHASE 3 HOLISTIC OPTIMIZATION & DEFICIENCY AUDIT REPORT
 ================================================================================
-Generated: 2026-11-22 13:04:52 | Engine: Unity 6 (URP) | Target: Mobile 60 FPS
+Generated: 2026-11-22 16:25:57 | Engine: Unity 6 (URP) | Target: Mobile 60 FPS
 Scene: Assets/_Project/Scenes/Main_Prototype.unity (720x720m 3x3 Sector Grid)
 ================================================================================
 
@@ -22,7 +22,7 @@ Scene: Assets/_Project/Scenes/Main_Prototype.unity (720x720m 3x3 Sector Grid)
 --------------------------------------------------------------------------------
 | Sector Container | GameObjects | MeshRenderers | Lights (Shadow) | ParticleSystems | Status & Budget Note |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Sector_0_0_Center | 3203 | 2576 | 62 (0) | 8 | ⚠️ High Density (Needs Tier 2 details culling) |
+| Sector_0_0_Center | 3267 | 2610 | 62 (0) | 8 | ⚠️ High Density (Needs Tier 2 details culling) |
 | Sector_0_1_North | 318 | 268 | 4 (0) | 0 | ✅ Budget Compliant (< 500 draw calls) |
 | Sector_1_0_East | 532 | 487 | 3 (0) | 1 | ✅ Budget Compliant (< 500 draw calls) |
 | Sector_1_1_NorthEast | 206 | 161 | 0 (0) | 0 | ✅ Budget Compliant (< 500 draw calls) |
@@ -44,18 +44,18 @@ Scene: Assets/_Project/Scenes/Main_Prototype.unity (720x720m 3x3 Sector Grid)
   - [PASS] -> Sector_0_1_North (Center): Complete Path (11 corners)
   - [PASS] -> Sector_1_0_East (Center): Complete Path (5 corners)
   - [PASS] -> Sector_1_1_NorthEast (Harbor): Complete Path (10 corners)
-  - [PASS] -> Sector_-1_0_West (City Park): Complete Path (8 corners)
-  - [PASS] -> Sector_-1_1_NorthWest (Lake): Complete Path (8 corners)
-  - [PASS] -> Sector_0_-1_South (Metro Hub): Complete Path (12 corners)
+  - [PASS] -> Sector_-1_0_West (City Park): Complete Path (10 corners)
+  - [PASS] -> Sector_-1_1_NorthWest (Lake): Complete Path (9 corners)
+  - [PASS] -> Sector_0_-1_South (Metro Hub): Complete Path (13 corners)
   - [WARNING] -> Sector_-1_-1_SouthWest (Flooded): Partial Path (NavMesh gap at perimeter border)
-  - [PASS] -> Sector_1_-1_SouthEast (Substation): Complete Path (16 corners)
+  - [PASS] -> Sector_1_-1_SouthEast (Substation): Complete Path (18 corners)
   - [WARNING] -> Outpost_NorthHighway FOB: Partial Path (NavMesh gap at perimeter border)
   - [WARNING] -> Outpost_EastRailStation Yard: Partial Path (NavMesh gap at perimeter border)
   - [WARNING] -> Outpost_NorthwestRanger Tower: Partial Path (NavMesh gap at perimeter border)
   - [WARNING] -> Outpost_SouthMetroHub Concourse: Partial Path (NavMesh gap at perimeter border)
   - [PASS] -> Boss Arena: Juggernaut (North Highway): Complete Path (8 corners)
   - [WARNING] -> Boss Arena: Banshee (South Mall): Partial Path (NavMesh gap at perimeter border)
-  - [PASS] -> Boss Arena: BioRavager (NE Harbor): Complete Path (6 corners)
+  - [PASS] -> Boss Arena: BioRavager (NE Harbor): Complete Path (7 corners)
 
 * **Vehicle NavMesh Obstacle & Carving Audit:**
   - [PASS] All 5 hero vehicles have NavMeshObstacle attached.
