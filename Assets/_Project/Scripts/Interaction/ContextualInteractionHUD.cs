@@ -220,6 +220,15 @@ namespace ProjectSurvival.Interaction
             if (existing != null)
             {
                 primaryButtonObj = existing.gameObject;
+                RectTransform existingRt = primaryButtonObj.GetComponent<RectTransform>();
+                if (existingRt != null)
+                {
+                    existingRt.anchorMin = new Vector2(1f, 0f);
+                    existingRt.anchorMax = new Vector2(1f, 0f);
+                    existingRt.pivot = new Vector2(0.5f, 0.5f);
+                    existingRt.anchoredPosition = new Vector2(-145f, 286f);
+                    existingRt.sizeDelta = new Vector2(196f, 54f);
+                }
                 primaryButton = primaryButtonObj.GetComponent<Button>();
                 if (primaryButton != null)
                 {
@@ -259,9 +268,9 @@ namespace ProjectSurvival.Interaction
             RectTransform rt = btnObj.GetComponent<RectTransform>();
             rt.anchorMin = new Vector2(1f, 0f);
             rt.anchorMax = new Vector2(1f, 0f);
-            rt.pivot = new Vector2(1f, 0.5f);
-            rt.anchoredPosition = new Vector2(-56f, 265f);
-            rt.sizeDelta = new Vector2(184f, 60f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = new Vector2(-145f, 286f);
+            rt.sizeDelta = new Vector2(196f, 54f);
 
             Image bg = btnObj.AddComponent<Image>();
             bg.color = new Color(0.10f, 0.13f, 0.18f, 0.95f);

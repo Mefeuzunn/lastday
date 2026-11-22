@@ -279,6 +279,7 @@ namespace ProjectSurvival.UI
                         // In Gameplay mode: only reactivate default on-screen gameplay widgets
                         bool isDefaultGameplayWidget =
                             childName.Equals("TouchLookArea", System.StringComparison.OrdinalIgnoreCase) ||
+                            childName.Equals("TouchCameraLookPad", System.StringComparison.OrdinalIgnoreCase) ||
                             childName.Equals("StealthIndicator_Panel", System.StringComparison.OrdinalIgnoreCase) ||
                             childName.Equals("CompassBar_Panel", System.StringComparison.OrdinalIgnoreCase) ||
                             childName.Equals("QuestTracker_Panel", System.StringComparison.OrdinalIgnoreCase) ||

@@ -18,6 +18,8 @@ namespace ProjectSurvival.UI
         [Header("Tactile Mini Buttons")]
         [SerializeField] private Button holsterButton;
         [SerializeField] private Button switchButton;
+        [SerializeField] private Button reloadButton;
+        [SerializeField] private Button flashlightButton;
 
         [Header("Weapon Icons")]
         [SerializeField] private Sprite unarmedFistSprite;
@@ -46,6 +48,18 @@ namespace ProjectSurvival.UI
             {
                 switchButton.onClick.RemoveAllListeners();
                 switchButton.onClick.AddListener(OnSwitchClicked);
+            }
+
+            if (reloadButton != null)
+            {
+                reloadButton.onClick.RemoveAllListeners();
+                reloadButton.onClick.AddListener(OnReloadClicked);
+            }
+
+            if (flashlightButton != null)
+            {
+                flashlightButton.onClick.RemoveAllListeners();
+                flashlightButton.onClick.AddListener(OnFlashlightClicked);
             }
         }
 
@@ -88,11 +102,22 @@ namespace ProjectSurvival.UI
             {
                 OnSwitchClicked();
             }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                OnReloadClicked();
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                OnFlashlightClicked();
+            }
         }
 
         public void Configure(Button cardBtn, Image iconImg, Text nameTxt, Text ammoTxt,
                               Button hBtn, Button sBtn,
-                              Sprite fist, Sprite axe, Sprite pistol, Sprite shotgun, Sprite crossbow = null)
+                              Sprite fist, Sprite axe, Sprite pistol, Sprite shotgun, Sprite crossbow = null,
+                              Button rBtn = null, Button fBtn = null)
         {
             weaponCardButton = cardBtn;
             weaponIconImage = iconImg;
@@ -100,6 +125,8 @@ namespace ProjectSurvival.UI
             ammoCounterText = ammoTxt;
             holsterButton = hBtn;
             switchButton = sBtn;
+            if (rBtn != null) reloadButton = rBtn;
+            if (fBtn != null) flashlightButton = fBtn;
 
             unarmedFistSprite = fist;
             axeSprite = axe;
@@ -124,6 +151,18 @@ namespace ProjectSurvival.UI
                 switchButton.onClick.RemoveAllListeners();
                 switchButton.onClick.AddListener(OnSwitchClicked);
             }
+
+            if (reloadButton != null)
+            {
+                reloadButton.onClick.RemoveAllListeners();
+                reloadButton.onClick.AddListener(OnReloadClicked);
+            }
+
+            if (flashlightButton != null)
+            {
+                flashlightButton.onClick.RemoveAllListeners();
+                flashlightButton.onClick.AddListener(OnFlashlightClicked);
+            }
         }
 
         private void OnWeaponCardClicked()
@@ -139,6 +178,16 @@ namespace ProjectSurvival.UI
         private void OnSwitchClicked()
         {
             WeaponSystem.Instance?.CycleNextWeapon();
+        }
+
+        public void OnReloadClicked()
+        {
+            WeaponSystem.Instance?.Reload();
+        }
+
+        public void OnFlashlightClicked()
+        {
+            FlashlightController.Instance?.ToggleFlashlight();
         }
 
         private void HandleWeaponChanged(string weaponName, int clip, int reserve)

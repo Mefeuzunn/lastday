@@ -223,14 +223,13 @@ namespace ProjectSurvival.EditorTools
             }
             bedObj.transform.localPosition = new Vector3(-2.8f, 0.25f, -1.8f);
 
-            // Bed Mattress Base
-            CreateOrUpdatePrimitiveChild(bedObj.transform, "Bed_Mattress", PrimitiveType.Cube, Vector3.zero, new Vector3(1.6f, 0.45f, 2.1f), sheetMat);
-
-            // Bed Blanket
-            CreateOrUpdatePrimitiveChild(bedObj.transform, "Bed_Blanket", PrimitiveType.Cube, new Vector3(0f, 0.08f, -0.25f), new Vector3(1.62f, 0.35f, 1.5f), blanketMat);
-
-            // Pillow
-            CreateOrUpdatePrimitiveChild(bedObj.transform, "Bed_Pillow", PrimitiveType.Cube, new Vector3(0f, 0.3f, 0.7f), new Vector3(1.1f, 0.18f, 0.45f), whiteMat);
+            // Bed Mattress Base & Pillows (only if real 3D model is not already present)
+            if (bedObj.transform.Find("bedDouble") == null)
+            {
+                CreateOrUpdatePrimitiveChild(bedObj.transform, "Bed_Mattress", PrimitiveType.Cube, Vector3.zero, new Vector3(1.6f, 0.45f, 2.1f), sheetMat);
+                CreateOrUpdatePrimitiveChild(bedObj.transform, "Bed_Blanket", PrimitiveType.Cube, new Vector3(0f, 0.08f, -0.25f), new Vector3(1.62f, 0.35f, 1.5f), blanketMat);
+                CreateOrUpdatePrimitiveChild(bedObj.transform, "Bed_Pillow", PrimitiveType.Cube, new Vector3(0f, 0.3f, 0.7f), new Vector3(1.1f, 0.18f, 0.45f), whiteMat);
+            }
 
             // Bed BoxCollider must be added before UtilityFixtureInteractable (due to [RequireComponent(typeof(Collider))])
             var bedCol = bedObj.GetComponent<BoxCollider>();
@@ -250,13 +249,17 @@ namespace ProjectSurvival.EditorTools
             if (nsTf != null) nsObj = nsTf.gameObject;
             else
             {
-                nsObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                nsObj.name = "Nightstand_Wood";
+                nsObj = new GameObject("Nightstand_Wood");
                 nsObj.transform.SetParent(roomObj.transform, false);
             }
-            nsObj.transform.localPosition = new Vector3(-1.6f, 0.35f, -1.8f);
-            nsObj.transform.localScale = new Vector3(0.45f, 0.7f, 0.45f);
-            if (woodMat != null) nsObj.GetComponent<MeshRenderer>().sharedMaterial = woodMat;
+            nsObj.transform.localPosition = new Vector3(-1.6f, 0.0f, -1.8f);
+            if (nsObj.transform.Find("cabinetBedDrawer") == null && nsObj.GetComponent<MeshFilter>() == null)
+            {
+                var mf = nsObj.AddComponent<MeshFilter>();
+                mf.sharedMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+                var mr = nsObj.AddComponent<MeshRenderer>();
+                if (woodMat != null) mr.sharedMaterial = woodMat;
+            }
 
             // 4. Interactive Nightstand Smartphone (Resting on nightstand top)
             Transform phoneTf = roomObj.transform.Find("Smartphone_Nightstand");
@@ -264,17 +267,20 @@ namespace ProjectSurvival.EditorTools
             if (phoneTf != null) phoneObj = phoneTf.gameObject;
             else
             {
-                phoneObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                phoneObj.name = "Smartphone_Nightstand";
+                phoneObj = new GameObject("Smartphone_Nightstand");
                 phoneObj.transform.SetParent(roomObj.transform, false);
             }
-            phoneObj.transform.localPosition = new Vector3(-1.6f, 0.72f, -1.8f);
+            phoneObj.transform.localPosition = new Vector3(-1.6f, 0.67f, -1.8f);
             phoneObj.transform.localEulerAngles = new Vector3(0f, 25f, 0f);
-            phoneObj.transform.localScale = new Vector3(0.09f, 0.015f, 0.18f);
-
-            Material phoneMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Materials/Mat_Window_LitCyan.mat") ??
-                                AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Materials/Mat_Beacon_Blue.mat");
-            if (phoneMat != null) phoneObj.GetComponent<MeshRenderer>().sharedMaterial = phoneMat;
+            if (phoneObj.transform.Find("phone") == null && phoneObj.GetComponent<MeshFilter>() == null)
+            {
+                var mf = phoneObj.AddComponent<MeshFilter>();
+                mf.sharedMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+                var mr = phoneObj.AddComponent<MeshRenderer>();
+                Material phoneMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Materials/Mat_Window_LitCyan.mat") ??
+                                    AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Materials/Mat_Beacon_Blue.mat");
+                if (phoneMat != null) mr.sharedMaterial = phoneMat;
+            }
 
             // Trigger SphereCollider for proximity interaction (radius = 2.6f)
             SphereCollider phoneCol = phoneObj.GetComponent<SphereCollider>();

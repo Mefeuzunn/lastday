@@ -12,7 +12,8 @@ namespace ProjectSurvival.UI
         [SerializeField] private RectTransform handle;
 
         [Header("Settings")]
-        [SerializeField] private float handleRange = 85f;
+        [SerializeField] private float handleRange = 78f;
+        [SerializeField] private float deadZone = 0.08f;
         [SerializeField] private bool allowKeyboardFallbackInEditor = true;
 
         private Vector2 inputVector = Vector2.zero;
@@ -20,9 +21,37 @@ namespace ProjectSurvival.UI
         private bool isDragging = false;
 
         public bool IsDragging => isDragging;
-        public float Horizontal => GetAxis(inputVector.x, "Horizontal");
-        public float Vertical => GetAxis(inputVector.y, "Vertical");
-        public Vector2 Direction => new Vector2(Horizontal, Vertical);
+        public float DeadZone => deadZone;
+        public float Horizontal => Direction.x;
+        public float Vertical => Direction.y;
+
+        public Vector2 Direction
+        {
+            get
+            {
+                if (isDragging)
+                {
+                    float rawMag = inputVector.magnitude;
+                    if (rawMag < deadZone) return Vector2.zero;
+
+                    float normalized = Mathf.Clamp01((rawMag - deadZone) / (1f - deadZone));
+                    // Smooth ergonomic analog response curve: quadratic blend for fine control and snappy sprint
+                    float curved = (0.7f * normalized * normalized) + (0.3f * normalized);
+                    return inputVector.normalized * curved;
+                }
+
+                if (allowKeyboardFallbackInEditor)
+                {
+                    float h = Input.GetAxisRaw("Horizontal");
+                    float v = Input.GetAxisRaw("Vertical");
+                    Vector2 kDir = new Vector2(h, v);
+                    if (kDir.sqrMagnitude > 1f) kDir.Normalize();
+                    return kDir;
+                }
+
+                return Vector2.zero;
+            }
+        }
 
         private void Awake()
         {
@@ -70,21 +99,6 @@ namespace ProjectSurvival.UI
             {
                 handle.anchoredPosition = Vector2.zero;
             }
-        }
-
-        private float GetAxis(float joystickVal, string axisName)
-        {
-            if (Mathf.Abs(joystickVal) > 0.05f)
-            {
-                return joystickVal;
-            }
-
-            if (allowKeyboardFallbackInEditor)
-            {
-                return Input.GetAxisRaw(axisName);
-            }
-
-            return 0f;
         }
     }
 }

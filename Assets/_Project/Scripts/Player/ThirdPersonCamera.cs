@@ -211,6 +211,24 @@ namespace ProjectSurvival.Player
             aimSensitivityMultiplier = Mathf.Clamp(aimSens, 0.2f, 2.5f);
         }
 
+        public void ApplyTouchLookDelta(Vector2 delta)
+        {
+            float currentTouchSens = isAiming ? (touchSensitivity * aimSensitivityMultiplier) : touchSensitivity;
+            float touchPitchDelta = invertY ? (-delta.y * currentTouchSens) : (delta.y * currentTouchSens);
+            targetYaw += delta.x * currentTouchSens;
+            targetPitch = Mathf.Clamp(targetPitch - touchPitchDelta, minPitch, maxPitch);
+        }
+
+        public void ApplyMouseLookDelta(Vector2 delta)
+        {
+            float currentMouseSens = isAiming ? (mouseSensitivity * aimSensitivityMultiplier) : mouseSensitivity;
+            float mouseX = delta.x * 0.15f * currentMouseSens;
+            float mouseY = delta.y * 0.15f * currentMouseSens;
+            float pitchDelta = invertY ? mouseY : -mouseY;
+            targetYaw += mouseX;
+            targetPitch = Mathf.Clamp(targetPitch + pitchDelta, minPitch, maxPitch);
+        }
+
         public void SetDefaultFOV(float fov)
         {
             defaultFOV = Mathf.Clamp(fov, 50f, 75f);
