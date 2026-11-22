@@ -445,7 +445,7 @@ namespace ProjectSurvival.UI
                 if (ws != null) ws.EquipWeapon(WeaponType.None);
 
                 // Ensure survival stats and traumas are calibrated
-                ApartmentWakeUpSequence.Instance?.CalibrateUnarmedPlayer();
+                ProjectSurvival.Narrative.ApartmentWakeUpSequence.Instance?.CalibrateUnarmedPlayer();
 
                 // Clear any nearby zombies within 45m safe perimeter
                 SpawnProtectionController.Instance?.RelocateZombiesInsideSafePerimeter();

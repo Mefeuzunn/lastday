@@ -290,7 +290,10 @@ namespace ProjectSurvival.AI
             if (anim != null) anim.enabled = false;
             if (agent != null)
             {
-                agent.isStopped = true;
+                if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+                {
+                    agent.isStopped = true;
+                }
                 agent.enabled = false;
             }
 
