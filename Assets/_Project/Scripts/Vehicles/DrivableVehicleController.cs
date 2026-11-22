@@ -198,13 +198,13 @@ namespace ProjectSurvival.Vehicles
             }
 
             // Locate Visual Wheels
-            Transform meshRoot = transform.Find("Wheels_Visual") ?? (visualModel != null ? visualModel.Find("Wheels_Visual") : null);
+            Transform meshRoot = transform.Find("Wheels_Visual") ?? transform.Find("Wheel_Visuals") ?? (visualModel != null ? (visualModel.Find("Wheel_Visuals") ?? visualModel.Find("Wheels_Visual")) : null);
             if (meshRoot != null)
             {
-                if (wheelMeshFL == null) wheelMeshFL = meshRoot.Find("Wheel_FL");
-                if (wheelMeshFR == null) wheelMeshFR = meshRoot.Find("Wheel_FR");
-                if (wheelMeshRL == null) wheelMeshRL = meshRoot.Find("Wheel_RL");
-                if (wheelMeshRR == null) wheelMeshRR = meshRoot.Find("Wheel_RR");
+                if (wheelMeshFL == null) wheelMeshFL = meshRoot.Find("Wheel_FL_3D") ?? meshRoot.Find("Wheel_FL");
+                if (wheelMeshFR == null) wheelMeshFR = meshRoot.Find("Wheel_FR_3D") ?? meshRoot.Find("Wheel_FR");
+                if (wheelMeshRL == null) wheelMeshRL = meshRoot.Find("Wheel_RL_3D") ?? meshRoot.Find("Wheel_RL");
+                if (wheelMeshRR == null) wheelMeshRR = meshRoot.Find("Wheel_RR_3D") ?? meshRoot.Find("Wheel_RR");
             }
 
             // Locate Steering Wheel
