@@ -145,7 +145,7 @@ namespace ProjectSurvival.UI
             phoneOutline.effectColor = new Color(0.95f, 0.72f, 0.15f, 0.85f); // Amber glowing trim
             phoneOutline.effectDistance = new Vector2(2f, -2f);
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
 
             // Top Status Bar
             GameObject statusBar = new GameObject("Status_Bar");

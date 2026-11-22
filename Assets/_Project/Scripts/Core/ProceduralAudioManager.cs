@@ -66,31 +66,18 @@ namespace ProjectSurvival.Core
             footstepsSource.playOnAwake = false;
 
             ambientSource.playOnAwake = false;
-            ambientSource.loop = true;
-            ambientSource.volume = isMuted ? 0f : ambientVolume;
-
-            StartAmbientLoop();
+            ambientSource.loop = false;
+            ambientSource.volume = 0f;
+            if (ambientSource.isPlaying) ambientSource.Stop();
         }
 
         private void StartAmbientLoop()
         {
-            if (ambientSource == null || ambientSource.isPlaying) return;
-
-            // Generate 4-second procedural gentle filtered air breeze (no harsh white noise static)
-            float dur = 4.0f;
-            float lpfState = 0f;
-            AudioClip ambientClip = GenerateTone(dur, (t) =>
+            if (ambientSource != null)
             {
-                float slowLfo = Mathf.Sin(2f * Mathf.PI * 0.25f * t);
-                float softAir = Mathf.Sin(2f * Mathf.PI * 52f * t) * 0.12f;
-                float rawNoise = (UnityEngine.Random.value * 2f - 1f) * 0.08f;
-                lpfState = Mathf.Lerp(lpfState, rawNoise, 0.05f); // 1-pole gentle low-pass filter
-                return (softAir + lpfState * (0.12f + 0.04f * slowLfo));
-            });
-
-            ambientSource.clip = ambientClip;
-            ambientSource.volume = isMuted ? 0f : Mathf.Min(ambientVolume, 0.20f);
-            ambientSource.Play();
+                ambientSource.loop = false;
+                if (ambientSource.isPlaying) ambientSource.Stop();
+            }
         }
 
         public void SetMasterVolume(float vol)

@@ -155,7 +155,7 @@ namespace ProjectSurvival.Interaction
                 rtTitle.anchorMax = new Vector2(1f, 1f);
                 rtTitle.sizeDelta = Vector2.zero;
                 headerTitleText = titleObj.AddComponent<Text>();
-                headerTitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                headerTitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                 headerTitleText.fontSize = 12;
                 headerTitleText.fontStyle = FontStyle.Bold;
                 headerTitleText.color = Color.white;
@@ -170,7 +170,7 @@ namespace ProjectSurvival.Interaction
                 rtSub.anchorMax = new Vector2(1f, 0.5f);
                 rtSub.sizeDelta = Vector2.zero;
                 headerSubtitleText = subObj.AddComponent<Text>();
-                headerSubtitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                headerSubtitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                 headerSubtitleText.fontSize = 9;
                 headerSubtitleText.color = new Color(0.8f, 0.84f, 0.9f, 0.85f);
                 headerSubtitleText.alignment = TextAnchor.MiddleLeft;
@@ -308,7 +308,7 @@ namespace ProjectSurvival.Interaction
             rtBadge.anchoredPosition = new Vector2(8f, 0f);
             rtBadge.sizeDelta = new Vector2(28f, 0f);
             primaryKeybindText = badgeObj.AddComponent<Text>();
-            primaryKeybindText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            primaryKeybindText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             primaryKeybindText.fontSize = 12;
             primaryKeybindText.fontStyle = FontStyle.Bold;
             primaryKeybindText.alignment = TextAnchor.MiddleCenter;
@@ -325,7 +325,7 @@ namespace ProjectSurvival.Interaction
             rtLabel.anchoredPosition = new Vector2(14f, 0f);
             rtLabel.sizeDelta = new Vector2(-40f, 0f);
             primaryLabelText = labelObj.AddComponent<Text>();
-            primaryLabelText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            primaryLabelText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             primaryLabelText.fontSize = 13;
             primaryLabelText.fontStyle = FontStyle.Bold;
             primaryLabelText.alignment = TextAnchor.MiddleCenter;
@@ -382,7 +382,7 @@ namespace ProjectSurvival.Interaction
             rtBadge.anchoredPosition = new Vector2(6f, 0f);
             rtBadge.sizeDelta = new Vector2(24f, 0f);
             Text badgeTxt = badgeObj.AddComponent<Text>();
-            badgeTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            badgeTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             badgeTxt.fontSize = 10;
             badgeTxt.fontStyle = FontStyle.Bold;
             badgeTxt.color = new Color(1f, 0.85f, 0.35f, 0.95f);
@@ -399,7 +399,7 @@ namespace ProjectSurvival.Interaction
             rtLabel.anchoredPosition = new Vector2(34f, 0f);
             rtLabel.sizeDelta = new Vector2(-36f, 0f);
             Text labelTxt = labelObj.AddComponent<Text>();
-            labelTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            labelTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             labelTxt.fontSize = 11;
             labelTxt.fontStyle = FontStyle.Bold;
             labelTxt.color = Color.white;
@@ -416,7 +416,7 @@ namespace ProjectSurvival.Interaction
             rtReq.anchoredPosition = new Vector2(-6f, 0f);
             rtReq.sizeDelta = new Vector2(0f, 0f);
             Text reqTxt = reqObj.AddComponent<Text>();
-            reqTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            reqTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             reqTxt.fontSize = 9;
             reqTxt.alignment = TextAnchor.MiddleRight;
             reqTxt.raycastTarget = false;

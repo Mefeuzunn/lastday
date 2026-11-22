@@ -236,7 +236,7 @@ namespace ProjectSurvival.Interaction
             rtText.sizeDelta = Vector2.zero;
 
             floatingBadgeText = textObj.AddComponent<Text>();
-            floatingBadgeText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            floatingBadgeText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             floatingBadgeText.fontSize = 19;
             floatingBadgeText.fontStyle = FontStyle.Bold;
             floatingBadgeText.alignment = TextAnchor.MiddleCenter;

@@ -58,7 +58,7 @@ namespace ProjectSurvival.UI
             dr.sizeDelta = new Vector2(300f, 20f);
 
             activeDistrictText = dObj.AddComponent<Text>();
-            activeDistrictText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            activeDistrictText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             activeDistrictText.fontSize = 11;
             activeDistrictText.fontStyle = FontStyle.Bold;
             activeDistrictText.alignment = TextAnchor.MiddleCenter;
@@ -162,7 +162,7 @@ namespace ProjectSurvival.UI
                 txt.fontStyle = (label.Length == 1) ? FontStyle.Bold : FontStyle.Normal;
                 txt.alignment = TextAnchor.MiddleCenter;
                 txt.color = (label == "K") ? new Color(1f, 0.35f, 0.35f, 0.95f) : new Color(0.85f, 0.9f, 0.95f, 0.85f);
-                txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                 txt.raycastTarget = false;
 
                 cardinals.Add(new CardinalDef

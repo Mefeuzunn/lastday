@@ -151,7 +151,7 @@ namespace ProjectSurvival.UI
                     GameObject textObj = new GameObject("Text", typeof(RectTransform), typeof(Text));
                     textObj.transform.SetParent(slotObj.transform, false);
                     Text t = textObj.GetComponent<Text>();
-                    t.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+                    t.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
                     t.fontSize = 13;
                     t.alignment = TextAnchor.MiddleCenter;
                     t.color = Color.white;
@@ -255,7 +255,7 @@ namespace ProjectSurvival.UI
                 GameObject textObj = new GameObject("NoteText", typeof(RectTransform), typeof(Text));
                 textObj.transform.SetParent(noteObj.transform, false);
                 Text t = textObj.GetComponent<Text>();
-                t.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+                t.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
                 t.fontSize = 13;
                 t.alignment = TextAnchor.MiddleLeft;
                 t.color = Color.white;

@@ -31,7 +31,7 @@ namespace ProjectSurvival.Interaction
         [SerializeField] protected Color focusEmissionColor = new Color(0.35f, 0.28f, 0.08f, 1f); // #FFD166 warm amber rim
 
         protected Renderer[] cachedRenderers;
-        protected MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        protected MaterialPropertyBlock propBlock;
         protected bool isFocused = false;
         protected Collider mainCollider;
 

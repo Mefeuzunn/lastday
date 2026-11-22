@@ -4930,7 +4930,7 @@ namespace ProjectSurvival.EditorTools
             txt.alignment = TextAnchor.MiddleCenter;
             txt.color = Color.white;
             txt.raycastTarget = false;
-            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             valueText = txt;
 
             return slider;
@@ -5123,7 +5123,7 @@ namespace ProjectSurvival.EditorTools
                 txt.alignment = TextAnchor.MiddleCenter;
                 txt.color = Color.white;
                 txt.raycastTarget = false;
-                txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             }
 
             return btn;
@@ -5443,7 +5443,7 @@ namespace ProjectSurvival.EditorTools
             countTxt.alignment = TextAnchor.LowerRight;
             countTxt.color = new Color(1f, 0.9f, 0.4f);
             countTxt.raycastTarget = false;
-            countTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            countTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
 
             return btn;
         }
@@ -5482,7 +5482,7 @@ namespace ProjectSurvival.EditorTools
             txt.alignment = alignment;
             txt.color = color;
             txt.raycastTarget = false;
-            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
 
             return txt;
         }

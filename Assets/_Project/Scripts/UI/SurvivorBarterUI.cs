@@ -293,7 +293,7 @@ namespace ProjectSurvival.UI
             textRect.offsetMax = new Vector2(-10f, -4f);
 
             Text t = textObj.AddComponent<Text>();
-            t.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            t.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             t.fontSize = 13;
             t.alignment = TextAnchor.MiddleLeft;
             t.raycastTarget = false;

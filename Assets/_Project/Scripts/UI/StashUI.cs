@@ -142,7 +142,7 @@ namespace ProjectSurvival.UI
             GameObject textObj = new GameObject("Text", typeof(RectTransform), typeof(Text));
             textObj.transform.SetParent(obj.transform, false);
             Text t = textObj.GetComponent<Text>();
-            t.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            t.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             t.fontSize = 12;
             t.alignment = TextAnchor.MiddleCenter;
             t.color = Color.white;

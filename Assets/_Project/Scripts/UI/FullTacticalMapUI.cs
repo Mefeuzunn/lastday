@@ -140,7 +140,7 @@ namespace ProjectSurvival.UI
             sectorGridOverlayRoot.anchoredPosition = Vector2.zero;
             sectorGridOverlayRoot.sizeDelta = mapContent.sizeDelta;
 
-            Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
 
             var sectors = WorldMapConfig.GetAllSectors();
             for (int i = 0; i < sectors.Count; i++)

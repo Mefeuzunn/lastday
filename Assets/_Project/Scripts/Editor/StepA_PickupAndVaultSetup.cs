@@ -226,7 +226,7 @@ namespace ProjectSurvival.EditorTools
             rtBadge.anchoredPosition = new Vector2(8f, 0f);
             rtBadge.sizeDelta = new Vector2(28f, 0f);
             Text badgeText = badgeObj.GetComponent<Text>() ?? badgeObj.AddComponent<Text>();
-            badgeText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            badgeText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             badgeText.fontSize = 12;
             badgeText.fontStyle = FontStyle.Bold;
             badgeText.alignment = TextAnchor.MiddleCenter;
@@ -245,7 +245,7 @@ namespace ProjectSurvival.EditorTools
             rtLabel.anchoredPosition = new Vector2(14f, 0f);
             rtLabel.sizeDelta = new Vector2(-40f, 0f);
             Text labelText = labelObj.GetComponent<Text>() ?? labelObj.AddComponent<Text>();
-            labelText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            labelText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             labelText.fontSize = 13;
             labelText.fontStyle = FontStyle.Bold;
             labelText.alignment = TextAnchor.MiddleCenter;
@@ -304,7 +304,7 @@ namespace ProjectSurvival.EditorTools
             rtLabel.anchorMax = Vector2.one;
             rtLabel.sizeDelta = Vector2.zero;
             Text labelText = labelObj.GetComponent<Text>() ?? labelObj.AddComponent<Text>();
-            labelText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            labelText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             labelText.fontSize = 14;
             labelText.fontStyle = FontStyle.Bold;
             labelText.alignment = TextAnchor.MiddleCenter;

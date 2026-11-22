@@ -174,23 +174,11 @@ namespace ProjectSurvival.Environment
 
                     if (fl.BuzzSource != null)
                     {
-                        fl.BuzzSource.spatialBlend = 1.0f; // 100% 3D spatialized audio
-                        fl.BuzzSource.minDistance = 1.0f;
-                        fl.BuzzSource.maxDistance = 7.5f;
-                        fl.BuzzSource.rolloffMode = AudioRolloffMode.Linear;
-                        fl.BuzzSource.loop = true;
-                        fl.BuzzSource.volume = 0.035f;
+                        fl.BuzzSource.spatialBlend = 1.0f;
+                        fl.BuzzSource.loop = false;
+                        fl.BuzzSource.volume = 0f;
                         fl.BuzzSource.playOnAwake = false;
-
-                        if (humClip != null && fl.BuzzSource.clip == null)
-                        {
-                            fl.BuzzSource.clip = humClip;
-                        }
-
-                        if (Application.isPlaying && !fl.BuzzSource.isPlaying && fl.BuzzSource.clip != null)
-                        {
-                            fl.BuzzSource.Play();
-                        }
+                        if (fl.BuzzSource.isPlaying) fl.BuzzSource.Stop();
                     }
                 }
             }
@@ -198,60 +186,31 @@ namespace ProjectSurvival.Environment
 
         public void ConfigureIndoorDustVolumes()
         {
-            Shader urpDust = Shader.Find("Universal Render Pipeline/Particles/Unlit")
-                ?? Shader.Find("Universal Render Pipeline/Unlit")
-                ?? Shader.Find("Sprites/Default");
-
-            Material dustMat = new Material(urpDust);
-            dustMat.name = "Mat_IndoorSunbeamDust_Instanced";
-            dustMat.color = new Color(0.92f, 0.88f, 0.72f, 0.35f); // Warm sunbeam motes
-            dustMat.enableInstancing = true;
+            // Remove/destroy all blocky square yellow particle systems inside interiors
+            var allDustObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            for (int i = 0; i < allDustObjects.Length; i++)
+            {
+                if (allDustObjects[i] != null && allDustObjects[i].name == "IndoorDust_Motes")
+                {
+                    allDustObjects[i].SetActive(false);
+                    if (Application.isPlaying)
+                    {
+                        Destroy(allDustObjects[i]);
+                    }
+                }
+            }
 
             foreach (var vol in indoorDustVolumes)
             {
-                if (vol.Anchor != null && vol.DustParticleSystem == null)
+                if (vol.Anchor != null)
                 {
                     Transform existing = vol.Anchor.Find("IndoorDust_Motes");
                     if (existing != null)
                     {
-                        vol.DustParticleSystem = existing.GetComponent<ParticleSystem>();
+                        existing.gameObject.SetActive(false);
+                        if (Application.isPlaying) Destroy(existing.gameObject);
                     }
-                    else
-                    {
-                        GameObject dustObj = new GameObject("IndoorDust_Motes");
-                        dustObj.transform.SetParent(vol.Anchor, false);
-                        dustObj.transform.localPosition = new Vector3(0f, 1.4f, 0f);
-
-                        var ps = dustObj.AddComponent<ParticleSystem>();
-                        var main = ps.main;
-                        main.loop = true;
-                        main.playOnAwake = true;
-                        main.maxParticles = 60; // Lightweight mobile limit
-                        main.startLifetime = 5.5f;
-                        main.startSpeed = 0.08f;
-                        main.startSize = 0.05f;
-                        main.simulationSpace = ParticleSystemSimulationSpace.World;
-                        main.startColor = new Color(0.92f, 0.88f, 0.72f, 0.28f);
-
-                        var emission = ps.emission;
-                        emission.rateOverTime = 10f;
-
-                        var shape = ps.shape;
-                        shape.shapeType = ParticleSystemShapeType.Box;
-                        shape.scale = new Vector3(8.5f, 2.8f, 8.5f);
-
-                        var vel = ps.velocityOverLifetime;
-                        vel.enabled = true;
-                        vel.x = new ParticleSystem.MinMaxCurve(-0.04f, 0.04f);
-                        vel.y = new ParticleSystem.MinMaxCurve(-0.02f, 0.04f);
-                        vel.z = new ParticleSystem.MinMaxCurve(-0.04f, 0.04f);
-
-                        var renderer = ps.GetComponent<ParticleSystemRenderer>();
-                        renderer.renderMode = ParticleSystemRenderMode.Billboard;
-                        renderer.sharedMaterial = dustMat;
-
-                        vol.DustParticleSystem = ps;
-                    }
+                    vol.DustParticleSystem = null;
                 }
             }
         }
@@ -299,23 +258,11 @@ namespace ProjectSurvival.Environment
 
                 fl.LightComponent.intensity = fl.BaseIntensity * wave * jitter;
 
-                // Modulate gentle electrical hum volume based on voltage level (strictly silenced in safe zone)
+                // Ensure electrical hum is completely silenced
                 if (fl.BuzzSource != null)
                 {
-                    bool isSafeZone = fl.Name.Contains("SafeHouse") ||
-                                     fl.Name.Contains("FireLight") ||
-                                     fl.Name.Contains("Lantern") ||
-                                     Vector3.Distance(fl.LightComponent.transform.position, Vector3.zero) < 45.0f;
-
-                    if (isSafeZone)
-                    {
-                        fl.BuzzSource.volume = 0f;
-                        if (fl.BuzzSource.isPlaying) fl.BuzzSource.Stop();
-                    }
-                    else
-                    {
-                        fl.BuzzSource.volume = Mathf.Lerp(0.005f, 0.035f, wave * jitter);
-                    }
+                    fl.BuzzSource.volume = 0f;
+                    if (fl.BuzzSource.isPlaying) fl.BuzzSource.Stop();
                 }
             }
         }

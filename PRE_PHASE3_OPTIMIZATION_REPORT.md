@@ -1,14 +1,14 @@
 ﻿# PRE-PHASE 3 HOLISTIC OPTIMIZATION & DEFICIENCY AUDIT REPORT
 ================================================================================
-Generated: 2026-11-22 11:31:22 | Engine: Unity 6 (URP) | Target: Mobile 60 FPS
+Generated: 2026-11-22 13:04:52 | Engine: Unity 6 (URP) | Target: Mobile 60 FPS
 Scene: Assets/_Project/Scenes/Main_Prototype.unity (720x720m 3x3 Sector Grid)
 ================================================================================
 
 ## PILLAR 1: 720x720m MAP TOPOLOGY, VEHICLE DRIVABILITY & OUTPOST BUILD-ZONES
 --------------------------------------------------------------------------------
 * **Road Curb Snags (>0.14m vertical step):** 2 detected.
-  - [WARNING] Curbs_Boulevard_Left at (-6.85, 0.10, 0.00) (Step: 0.20m)
   - [WARNING] Curbs_Boulevard_Right at (6.85, 0.10, 0.00) (Step: 0.20m)
+  - [WARNING] Curbs_Boulevard_Left at (-6.85, 0.10, 0.00) (Step: 0.20m)
   - *Action:* Chamfer curb colliders or add 45° invisible wheel transition wedges to prevent vehicle launch/snagging.
 
 * **Phase 3 Modular Base-Building Footprints (Unobstructed, Flat <=8°, NavMesh-Walkable):**

@@ -208,7 +208,7 @@ namespace ProjectSurvival.AI
 
             Text txt = txtObj.AddComponent<Text>();
             txt.text = "\u263D GECE TEHD\u0130D\u0130 (+%15 HIZ)"; // ☾ GECE TEHDİDİ (+%15 HIZ)
-            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             txt.fontSize = 11;
             txt.fontStyle = FontStyle.Bold;
             txt.alignment = TextAnchor.MiddleCenter;

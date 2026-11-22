@@ -426,7 +426,7 @@ namespace ProjectSurvival.AI
             rtTitle.pivot = new Vector2(0f, 0.5f);
             rtTitle.anchoredPosition = new Vector2(14f, -2f);
             districtTitleText = titleObj.AddComponent<Text>();
-            districtTitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            districtTitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             districtTitleText.fontSize = 14;
             districtTitleText.fontStyle = FontStyle.Bold;
             districtTitleText.alignment = TextAnchor.MiddleLeft;
@@ -442,7 +442,7 @@ namespace ProjectSurvival.AI
             rtSub.pivot = new Vector2(0f, 0.5f);
             rtSub.anchoredPosition = new Vector2(14f, 2f);
             districtSubtitleText = subObj.AddComponent<Text>();
-            districtSubtitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            districtSubtitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             districtSubtitleText.fontSize = 10;
             districtSubtitleText.fontStyle = FontStyle.Normal;
             districtSubtitleText.alignment = TextAnchor.MiddleLeft;

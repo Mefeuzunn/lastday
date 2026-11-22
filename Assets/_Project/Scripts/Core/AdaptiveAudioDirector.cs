@@ -41,7 +41,6 @@ namespace ProjectSurvival.Core
         [SerializeField] private AudioSource layer3CombatStem;
 
         [Header("Layer Volumes")]
-        [SerializeField] private float layer1TargetVol = 0.5f;
         [SerializeField] private float layer2TargetVol = 0f;
         [SerializeField] private float layer3TargetVol = 0f;
 
@@ -78,26 +77,31 @@ namespace ProjectSurvival.Core
             InitializeAudioLayers();
         }
 
-        private void Start()
+        private void InitializeAudioLayers()
         {
-            FindPlayer();
-            StartAmbientBed();
-        }
-
-        private void Update()
-        {
-            float dt = Time.deltaTime;
-
-            // 1. Scan Proximity and Threat Levels every 0.35s
-            scanTimer += dt;
-            if (scanTimer >= 0.35f)
+            if (layer1AmbientBed == null)
             {
-                scanTimer = 0f;
-                EvaluateAudioThreats();
+                layer1AmbientBed = gameObject.AddComponent<AudioSource>();
+                layer1AmbientBed.loop = false;
+                layer1AmbientBed.playOnAwake = false;
+                layer1AmbientBed.volume = 0f;
             }
 
-            // 2. Smoothly Interpolate Audio Layer Volumes
-            UpdateLayerVolumes(dt);
+            if (layer2TensionPulse == null)
+            {
+                layer2TensionPulse = gameObject.AddComponent<AudioSource>();
+                layer2TensionPulse.loop = false;
+                layer2TensionPulse.playOnAwake = false;
+                layer2TensionPulse.volume = 0f;
+            }
+
+            if (layer3CombatStem == null)
+            {
+                layer3CombatStem = gameObject.AddComponent<AudioSource>();
+                layer3CombatStem.loop = false;
+                layer3CombatStem.playOnAwake = false;
+                layer3CombatStem.volume = 0f;
+            }
         }
 
         private void FindPlayer()
@@ -106,77 +110,51 @@ namespace ProjectSurvival.Core
             if (p != null) playerTransform = p.transform;
         }
 
-        private void InitializeAudioLayers()
+        private void Update()
         {
-            if (layer1AmbientBed == null)
+            float dt = Time.deltaTime;
+
+            scanTimer += dt;
+            if (scanTimer >= 0.35f)
             {
-                layer1AmbientBed = gameObject.AddComponent<AudioSource>();
-                layer1AmbientBed.loop = true;
-                layer1AmbientBed.playOnAwake = false;
-                layer1AmbientBed.priority = 180;
+                scanTimer = 0f;
+                EvaluateAudioThreats();
             }
 
-            if (layer2TensionPulse == null)
-            {
-                layer2TensionPulse = gameObject.AddComponent<AudioSource>();
-                layer2TensionPulse.loop = true;
-                layer2TensionPulse.playOnAwake = false;
-                layer2TensionPulse.priority = 140;
-            }
+            UpdateLayerVolumes(dt);
+        }
 
-            if (layer3CombatStem == null)
+        private void Start()
+        {
+            FindPlayer();
+            StopAllAmbientLoops();
+        }
+
+        public void StopAllAmbientLoops()
+        {
+            if (layer1AmbientBed != null)
             {
-                layer3CombatStem = gameObject.AddComponent<AudioSource>();
-                layer3CombatStem.loop = true;
-                layer3CombatStem.playOnAwake = false;
-                layer3CombatStem.priority = 100;
+                layer1AmbientBed.loop = false;
+                layer1AmbientBed.volume = 0f;
+                if (layer1AmbientBed.isPlaying) layer1AmbientBed.Stop();
+            }
+            if (layer2TensionPulse != null)
+            {
+                layer2TensionPulse.loop = false;
+                layer2TensionPulse.volume = 0f;
+                if (layer2TensionPulse.isPlaying) layer2TensionPulse.Stop();
+            }
+            if (layer3CombatStem != null)
+            {
+                layer3CombatStem.loop = false;
+                layer3CombatStem.volume = 0f;
+                if (layer3CombatStem.isPlaying) layer3CombatStem.Stop();
             }
         }
 
         private void StartAmbientBed()
         {
-            // Procedural Layer 1: Ambient wind and urban resonance (gentle filtered air bed)
-            if (!layer1AmbientBed.isPlaying)
-            {
-                float lastLpf = 0f;
-                AudioClip bedClip = GenerateProceduralTone(4.0f, (t) =>
-                {
-                    float raw = (UnityEngine.Random.value * 2f - 1f) * 0.05f;
-                    lastLpf = Mathf.Lerp(lastLpf, raw, 0.04f); // Gentle low-pass filter
-                    float lowDrone = Mathf.Sin(2f * Mathf.PI * 48f * t) * 0.05f;
-                    return lastLpf + lowDrone;
-                });
-                layer1AmbientBed.clip = bedClip;
-                layer1AmbientBed.Play();
-            }
-
-            // Procedural Layer 2: Low-frequency heartbeat / bass tension pulse
-            if (!layer2TensionPulse.isPlaying)
-            {
-                AudioClip tensionClip = GenerateProceduralTone(2.0f, (t) =>
-                {
-                    float pulse = Mathf.Pow(Mathf.Sin(Mathf.PI * t), 12f) * 0.6f;
-                    float sub = Mathf.Sin(2f * Mathf.PI * 52f * t) * pulse;
-                    return sub;
-                });
-                layer2TensionPulse.clip = tensionClip;
-                layer2TensionPulse.Play();
-            }
-
-            // Procedural Layer 3: Driving rhythmic combat percussion pulse
-            if (!layer3CombatStem.isPlaying)
-            {
-                AudioClip combatClip = GenerateProceduralTone(1.0f, (t) =>
-                {
-                    // 120 BPM rhythmic kick & snare cadence
-                    float beat = (t % 0.5f) / 0.5f;
-                    float env = Mathf.Exp(-12f * beat);
-                    float kick = Mathf.Sin(2f * Mathf.PI * Mathf.Lerp(90f, 40f, beat) * beat) * env * 0.85f;
-                    return kick;
-                });
-                layer3CombatStem.clip = combatClip;
-                layer3CombatStem.Play();
-            }
+            StopAllAmbientLoops();
         }
 
         // =========================================================================
@@ -251,7 +229,6 @@ namespace ProjectSurvival.Core
 
             if (isMainMenu || isInsideStarterSafeHouse)
             {
-                layer1TargetVol = 0.05f;
                 layer2TargetVol = 0f;
                 layer3TargetVol = 0f;
                 return;
@@ -278,12 +255,16 @@ namespace ProjectSurvival.Core
 
                 layer2TargetVol = isInTension ? 0.45f : 0f;
             }
-
-            layer1TargetVol = 0.20f;
         }
 
         private void UpdateLayerVolumes(float dt)
         {
+            if (layer1AmbientBed != null)
+            {
+                layer1AmbientBed.volume = 0f;
+                if (layer1AmbientBed.isPlaying) layer1AmbientBed.Stop();
+            }
+
             float masterVol = 1.0f;
             float ambientSetting = 0.7f;
             bool isMuted = false;
@@ -297,17 +278,17 @@ namespace ProjectSurvival.Core
 
             if (isMuted)
             {
-                layer1AmbientBed.volume = 0f;
-                layer2TensionPulse.volume = 0f;
-                layer3CombatStem.volume = 0f;
+                if (layer2TensionPulse != null) layer2TensionPulse.volume = 0f;
+                if (layer3CombatStem != null) layer3CombatStem.volume = 0f;
                 return;
             }
 
             float finalMultiplier = masterVol * ambientSetting;
 
-            layer1AmbientBed.volume = Mathf.MoveTowards(layer1AmbientBed.volume, layer1TargetVol * finalMultiplier, dt * 0.35f);
-            layer2TensionPulse.volume = Mathf.MoveTowards(layer2TensionPulse.volume, layer2TargetVol * finalMultiplier, dt * 0.45f);
-            layer3CombatStem.volume = Mathf.MoveTowards(layer3CombatStem.volume, layer3TargetVol * finalMultiplier, dt * 0.65f);
+            if (layer2TensionPulse != null)
+                layer2TensionPulse.volume = Mathf.MoveTowards(layer2TensionPulse.volume, layer2TargetVol * finalMultiplier, dt * 0.45f);
+            if (layer3CombatStem != null)
+                layer3CombatStem.volume = Mathf.MoveTowards(layer3CombatStem.volume, layer3TargetVol * finalMultiplier, dt * 0.65f);
         }
 
         private AudioClip GenerateProceduralTone(float duration, Func<float, float> waveFunc)

@@ -131,18 +131,21 @@ namespace ProjectSurvival.Combat
                 for (int i = 0; i < 4; i++)
                 {
                     Transform existingTick = hitmarkerRoot.Find(tickNames[i]);
+                    RectTransform rt;
                     GameObject tickObj;
-                    if (existingTick != null)
+                    if (existingTick != null && existingTick is RectTransform rect)
                     {
                         tickObj = existingTick.gameObject;
+                        rt = rect;
                     }
                     else
                     {
-                        tickObj = new GameObject(tickNames[i]);
+                        if (existingTick != null) Destroy(existingTick.gameObject);
+                        tickObj = new GameObject(tickNames[i], typeof(RectTransform));
                         tickObj.transform.SetParent(hitmarkerRoot, false);
+                        rt = tickObj.GetComponent<RectTransform>();
                     }
 
-                    RectTransform rt = tickObj.GetComponent<RectTransform>() ?? tickObj.AddComponent<RectTransform>();
                     rt.anchorMin = new Vector2(0.5f, 0.5f);
                     rt.anchorMax = new Vector2(0.5f, 0.5f);
                     rt.pivot = new Vector2(0.5f, 0.5f);

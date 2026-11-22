@@ -568,7 +568,7 @@ namespace ProjectSurvival.Environment
             trt.sizeDelta = Vector2.zero;
 
             weatherHUDText = txtObj.AddComponent<Text>();
-            weatherHUDText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            weatherHUDText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             weatherHUDText.fontSize = 10;
             weatherHUDText.fontStyle = FontStyle.Bold;
             weatherHUDText.alignment = TextAnchor.MiddleCenter;
@@ -613,7 +613,6 @@ namespace ProjectSurvival.Environment
 
                 rainOutdoorAudioSource.clip = GenerateProceduralRainClip(3.0f, false);
                 rainOutdoorAudioSource.volume = 0f;
-                rainOutdoorAudioSource.Play();
             }
 
             if (rainIndoorRoofAudioSource == null)
@@ -625,7 +624,6 @@ namespace ProjectSurvival.Environment
 
                 rainIndoorRoofAudioSource.clip = GenerateProceduralRainClip(3.0f, true);
                 rainIndoorRoofAudioSource.volume = 0f;
-                rainIndoorRoofAudioSource.Play();
             }
         }
 
@@ -659,19 +657,33 @@ namespace ProjectSurvival.Environment
 
             if (isMuted)
             {
-                if (rainOutdoorAudioSource != null) rainOutdoorAudioSource.volume = 0f;
-                if (rainIndoorRoofAudioSource != null) rainIndoorRoofAudioSource.volume = 0f;
+                if (rainOutdoorAudioSource != null)
+                {
+                    rainOutdoorAudioSource.volume = 0f;
+                    if (rainOutdoorAudioSource.isPlaying) rainOutdoorAudioSource.Stop();
+                }
+                if (rainIndoorRoofAudioSource != null)
+                {
+                    rainIndoorRoofAudioSource.volume = 0f;
+                    if (rainIndoorRoofAudioSource.isPlaying) rainIndoorRoofAudioSource.Stop();
+                }
                 return;
             }
 
             float multiplier = masterVol * ambientVol;
             if (rainOutdoorAudioSource != null)
             {
-                rainOutdoorAudioSource.volume = Mathf.MoveTowards(rainOutdoorAudioSource.volume, outdoorRainTargetVol * multiplier, dt * 0.45f);
+                float target = outdoorRainTargetVol * multiplier;
+                rainOutdoorAudioSource.volume = Mathf.MoveTowards(rainOutdoorAudioSource.volume, target, dt * 0.45f);
+                if (rainOutdoorAudioSource.volume > 0.001f && !rainOutdoorAudioSource.isPlaying) rainOutdoorAudioSource.Play();
+                else if (rainOutdoorAudioSource.volume <= 0.001f && rainOutdoorAudioSource.isPlaying) rainOutdoorAudioSource.Stop();
             }
             if (rainIndoorRoofAudioSource != null)
             {
-                rainIndoorRoofAudioSource.volume = Mathf.MoveTowards(rainIndoorRoofAudioSource.volume, indoorRoofTargetVol * multiplier, dt * 0.45f);
+                float target = indoorRoofTargetVol * multiplier;
+                rainIndoorRoofAudioSource.volume = Mathf.MoveTowards(rainIndoorRoofAudioSource.volume, target, dt * 0.45f);
+                if (rainIndoorRoofAudioSource.volume > 0.001f && !rainIndoorRoofAudioSource.isPlaying) rainIndoorRoofAudioSource.Play();
+                else if (rainIndoorRoofAudioSource.volume <= 0.001f && rainIndoorRoofAudioSource.isPlaying) rainIndoorRoofAudioSource.Stop();
             }
         }
 

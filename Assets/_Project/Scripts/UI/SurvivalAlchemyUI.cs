@@ -354,7 +354,7 @@ namespace ProjectSurvival.UI
                 Destroy(recipeListContainer.GetChild(i).gameObject);
             }
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             List<AlchemyRecipe> recipes = GetRecipesForMode(currentMode);
 
             for (int i = 0; i < recipes.Count; i++)
@@ -459,7 +459,7 @@ namespace ProjectSurvival.UI
                 Destroy(ingredientCardsContainer.GetChild(i).gameObject);
             }
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             bool canCraftAll = true;
 
             for (int i = 0; i < currentSelectedRecipe.ingredients.Count; i++)
@@ -611,7 +611,7 @@ namespace ProjectSurvival.UI
                 return;
             }
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
 
             // Modal Root Container
             panelRoot = new GameObject("SurvivalAlchemy_Panel");

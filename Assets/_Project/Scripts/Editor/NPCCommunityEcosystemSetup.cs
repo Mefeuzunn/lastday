@@ -215,7 +215,7 @@ namespace ProjectSurvival.EditorTools
                 tRect.offsetMin = Vector2.zero;
                 tRect.offsetMax = Vector2.zero;
                 titleTxt = tObj.AddComponent<Text>();
-                titleTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                titleTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                 titleTxt.fontSize = 20;
                 titleTxt.alignment = TextAnchor.MiddleLeft;
                 titleTxt.color = new Color(0.95f, 0.95f, 0.96f);
@@ -235,7 +235,7 @@ namespace ProjectSurvival.EditorTools
                 trRect.offsetMin = Vector2.zero;
                 trRect.offsetMax = Vector2.zero;
                 trustTxt = trObj.AddComponent<Text>();
-                trustTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                trustTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                 trustTxt.fontSize = 15;
                 trustTxt.alignment = TextAnchor.MiddleRight;
                 trustTxt.color = new Color(0.95f, 0.77f, 0.25f);
@@ -296,7 +296,7 @@ namespace ProjectSurvival.EditorTools
                 stRect.offsetMin = Vector2.zero;
                 stRect.offsetMax = Vector2.zero;
                 statusTxt = stObj.AddComponent<Text>();
-                statusTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                statusTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                 statusTxt.fontSize = 14;
                 statusTxt.alignment = TextAnchor.MiddleCenter;
                 statusTxt.color = Color.white;
@@ -329,7 +329,7 @@ namespace ProjectSurvival.EditorTools
                 cbtr.offsetMin = Vector2.zero;
                 cbtr.offsetMax = Vector2.zero;
                 Text cbTxt = cbt.AddComponent<Text>();
-                cbTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                cbTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                 cbTxt.fontSize = 15;
                 cbTxt.alignment = TextAnchor.MiddleCenter;
                 cbTxt.color = Color.white;
@@ -361,7 +361,7 @@ namespace ProjectSurvival.EditorTools
                 cltr.offsetMin = Vector2.zero;
                 cltr.offsetMax = Vector2.zero;
                 Text clTxt = clt.AddComponent<Text>();
-                clTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                clTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                 clTxt.fontSize = 14;
                 clTxt.alignment = TextAnchor.MiddleCenter;
                 clTxt.color = Color.white;

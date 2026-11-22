@@ -219,7 +219,7 @@ namespace ProjectSurvival.Narrative
             tr.sizeDelta = Vector2.zero;
 
             barterButtonText = tObj.AddComponent<Text>();
-            barterButtonText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            barterButtonText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             barterButtonText.fontSize = 15;
             barterButtonText.alignment = TextAnchor.MiddleCenter;
             barterButtonText.color = Color.white;

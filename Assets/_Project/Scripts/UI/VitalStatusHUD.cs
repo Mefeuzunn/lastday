@@ -323,7 +323,7 @@ namespace ProjectSurvival.UI
             rtText.anchorMax = Vector2.one;
             rtText.sizeDelta = Vector2.zero;
             armorText = textObj.AddComponent<Text>();
-            armorText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            armorText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             armorText.fontSize = 11;
             armorText.fontStyle = FontStyle.Bold;
             armorText.alignment = TextAnchor.MiddleCenter;
@@ -616,7 +616,7 @@ namespace ProjectSurvival.UI
             hlg.childForceExpandWidth = true;
             hlg.childForceExpandHeight = true;
 
-            Font uiFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            Font uiFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
 
             // 1. Bleed Badge (#E63946)
             badgeBleedingObj = CreateBadgePill(traumaBadgesContainer, "Badge_Bleeding", "KANAMA", colorBleeding, uiFont,

@@ -145,7 +145,7 @@ namespace ProjectSurvival.Environment
             rtTitle.anchoredPosition = new Vector2(0f, -4f);
             rtTitle.sizeDelta = new Vector2(260f, 26f);
             titleText = titleObj.AddComponent<Text>();
-            titleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            titleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             titleText.fontSize = 15;
             titleText.fontStyle = FontStyle.Bold;
             titleText.alignment = TextAnchor.MiddleCenter;

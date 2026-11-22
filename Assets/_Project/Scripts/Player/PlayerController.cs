@@ -224,6 +224,10 @@ namespace ProjectSurvival.Player
                 ? MobileJoystick.Instance.Direction 
                 : Vector2.zero;
             Vector2 keyInput = Vector2.zero;
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) keyInput.y += 1f;
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) keyInput.y -= 1f;
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) keyInput.x += 1f;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) keyInput.x -= 1f;
 #if ENABLE_INPUT_SYSTEM
             var kb = UnityEngine.InputSystem.Keyboard.current;
             if (kb != null)
@@ -274,17 +278,19 @@ namespace ProjectSurvival.Player
             }
 
             Vector2 keyInput = Vector2.zero;
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) keyInput.y += 1f;
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) keyInput.y -= 1f;
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) keyInput.x += 1f;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) keyInput.x -= 1f;
+
 #if ENABLE_INPUT_SYSTEM
             var kb = UnityEngine.InputSystem.Keyboard.current;
             if (kb != null)
             {
-                float kx = 0f;
-                float ky = 0f;
-                if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) kx += 1f;
-                if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) kx -= 1f;
-                if (kb.wKey.isPressed || kb.upArrowKey.isPressed) ky += 1f;
-                if (kb.sKey.isPressed || kb.downArrowKey.isPressed) ky -= 1f;
-                keyInput = new Vector2(kx, ky);
+                if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) keyInput.x += 1f;
+                if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) keyInput.x -= 1f;
+                if (kb.wKey.isPressed || kb.upArrowKey.isPressed) keyInput.y += 1f;
+                if (kb.sKey.isPressed || kb.downArrowKey.isPressed) keyInput.y -= 1f;
             }
 #endif
 #if ENABLE_LEGACY_INPUT_MANAGER

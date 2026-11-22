@@ -79,7 +79,7 @@ namespace ProjectSurvival.UI
                     GameObject tObj = new GameObject("Speech_Text");
                     tObj.transform.SetParent(bubbleBackground.transform, false);
                     speechText = tObj.AddComponent<Text>();
-                    speechText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                    speechText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                     speechText.fontSize = 14;
                     speechText.alignment = TextAnchor.MiddleCenter;
                     speechText.color = new Color(0.95f, 0.95f, 0.96f, 1f);

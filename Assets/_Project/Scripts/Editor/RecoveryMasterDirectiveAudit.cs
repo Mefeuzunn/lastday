@@ -128,12 +128,12 @@ namespace ProjectSurvival.EditorTools
             Debug.Log("--- 4. Audit Bedroom Open Floor Spawn & Clearance ---");
             string menuScript = File.ReadAllText("Assets/_Project/Scripts/UI/MainMenuController.cs");
 
-            Assert(menuScript.Contains("new Vector3(-0.80f, 0.08f, -1.40f)"), "MainMenuController teleports player to open center coordinate (-0.80, 0.08, -1.40)");
-            Assert(menuScript.Contains("Quaternion.Euler(0f, 243.4f, 0f)"), "MainMenuController rotates player to face nightstand smartphone (yaw 243.4 deg)");
+            Assert(menuScript.Contains("new Vector3(-0.65f, 0.08f, -1.40f)"), "MainMenuController teleports player to open center coordinate (-0.65, 0.08, -1.40)");
+            Assert(menuScript.Contains("Quaternion.Euler(0f, 247.2f, 0f)"), "MainMenuController rotates player to face nightstand smartphone (yaw 247.2 deg)");
             Assert(menuScript.Contains("Physics.CheckCapsule"), "MainMenuController performs capsule clearance check before enabling CharacterController");
 
             // Perform in-editor physics test
-            Vector3 spawn = new Vector3(-0.80f, 0.08f, -1.40f);
+            Vector3 spawn = new Vector3(-0.65f, 0.08f, -1.40f);
             Vector3 p1 = spawn + Vector3.up * 0.35f;
             Vector3 p2 = spawn + Vector3.up * (1.8f - 0.35f);
             bool isBlocked = Physics.CheckCapsule(p1, p2, 0.30f, ~0, QueryTriggerInteraction.Ignore);

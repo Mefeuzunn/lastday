@@ -163,7 +163,7 @@ namespace ProjectSurvival.UI
                     GameObject wtObj = new GameObject("Wave_Title_Text");
                     wtObj.transform.SetParent(transform, false);
                     waveTitleText = wtObj.AddComponent<Text>();
-                    waveTitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                    waveTitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                     waveTitleText.fontSize = 12;
                     waveTitleText.fontStyle = FontStyle.Bold;
                     waveTitleText.alignment = TextAnchor.MiddleCenter;
@@ -189,7 +189,7 @@ namespace ProjectSurvival.UI
                     GameObject ecObj = new GameObject("Enemy_Count_Text");
                     ecObj.transform.SetParent(transform, false);
                     enemyCountText = ecObj.AddComponent<Text>();
-                    enemyCountText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+                    enemyCountText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
                     enemyCountText.fontSize = 11;
                     enemyCountText.fontStyle = FontStyle.Normal;
                     enemyCountText.alignment = TextAnchor.MiddleCenter;

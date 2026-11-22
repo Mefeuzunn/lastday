@@ -385,6 +385,7 @@ namespace ProjectSurvival.UI
         {
             if (isTransitioning) return;
             isTransitioning = true;
+            Time.timeScale = 1.0f;
 
             ProceduralAudioManager.Instance?.PlayButtonClick();
             MobileHapticManager.Instance?.TriggerLight();
@@ -407,8 +408,8 @@ namespace ProjectSurvival.UI
             LocatePlayer();
             if (playerTransform != null)
             {
-                Vector3 bedroomSpawn = new Vector3(-0.80f, 0.08f, -1.40f);
-                Quaternion bedroomRot = Quaternion.Euler(0f, 243.4f, 0f);
+                Vector3 bedroomSpawn = new Vector3(-0.65f, 0.08f, -1.40f);
+                Quaternion bedroomRot = Quaternion.Euler(0f, 247.2f, 0f);
 
                 var cc = playerTransform.GetComponent<CharacterController>();
                 if (cc != null) cc.enabled = false;
@@ -419,7 +420,7 @@ namespace ProjectSurvival.UI
                 if (Physics.CheckCapsule(p1, p2, 0.30f, ~0, QueryTriggerInteraction.Ignore))
                 {
                     Debug.LogWarning("[MainMenuController] Spawn point had minor collision, nudging slightly to clear space.");
-                    bedroomSpawn = new Vector3(-0.70f, 0.08f, -1.30f);
+                    bedroomSpawn = new Vector3(-0.55f, 0.08f, -1.30f);
                 }
 
                 playerTransform.position = bedroomSpawn;
@@ -492,6 +493,7 @@ namespace ProjectSurvival.UI
         {
             isMenuShowing = false;
             isTransitioning = false;
+            Time.timeScale = 1.0f;
 
             if (menuRootPanel != null)
             {

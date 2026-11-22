@@ -284,7 +284,7 @@ namespace ProjectSurvival.UI
             rtTitle.offsetMax = Vector2.zero;
 
             Text titleText = titleObj.AddComponent<Text>();
-            titleText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            titleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             titleText.fontSize = 20;
             titleText.fontStyle = FontStyle.Bold;
             titleText.alignment = TextAnchor.MiddleLeft;
@@ -301,7 +301,7 @@ namespace ProjectSurvival.UI
             rtPoints.offsetMax = Vector2.zero;
 
             pointsCounterText = pointsObj.AddComponent<Text>();
-            pointsCounterText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            pointsCounterText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             pointsCounterText.fontSize = 15;
             pointsCounterText.alignment = TextAnchor.MiddleCenter;
             pointsCounterText.color = Color.white;
@@ -330,7 +330,7 @@ namespace ProjectSurvival.UI
             rtCloseTxt.anchorMax = Vector2.one;
             rtCloseTxt.sizeDelta = Vector2.zero;
             Text closeTxt = closeTxtObj.AddComponent<Text>();
-            closeTxt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            closeTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             closeTxt.fontSize = 14;
             closeTxt.fontStyle = FontStyle.Bold;
             closeTxt.alignment = TextAnchor.MiddleCenter;
@@ -400,7 +400,7 @@ namespace ProjectSurvival.UI
             rtTxt.sizeDelta = Vector2.zero;
 
             Text txt = txtObj.AddComponent<Text>();
-            txt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             txt.fontSize = 14;
             txt.fontStyle = FontStyle.Bold;
             txt.alignment = TextAnchor.MiddleCenter;
@@ -454,7 +454,7 @@ namespace ProjectSurvival.UI
             rtTier.offsetMax = Vector2.zero;
 
             Text tierTxt = tierObj.AddComponent<Text>();
-            tierTxt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            tierTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             tierTxt.fontSize = 11;
             tierTxt.fontStyle = FontStyle.Bold;
             tierTxt.alignment = TextAnchor.MiddleLeft;
@@ -470,7 +470,7 @@ namespace ProjectSurvival.UI
             rtTitle.offsetMax = new Vector2(-8f, 0f);
 
             Text titleTxt = titleObj.AddComponent<Text>();
-            titleTxt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            titleTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             titleTxt.fontSize = 13;
             titleTxt.fontStyle = FontStyle.Bold;
             titleTxt.alignment = TextAnchor.MiddleLeft;
@@ -487,7 +487,7 @@ namespace ProjectSurvival.UI
             rtDesc.offsetMax = new Vector2(-10f, 0f);
 
             Text descTxt = descObj.AddComponent<Text>();
-            descTxt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            descTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             descTxt.fontSize = 11;
             descTxt.alignment = TextAnchor.UpperLeft;
             descTxt.color = new Color(0.80f, 0.82f, 0.85f);
@@ -520,7 +520,7 @@ namespace ProjectSurvival.UI
             rtBtnTxt.sizeDelta = Vector2.zero;
 
             Text btnTxt = btnTxtObj.AddComponent<Text>();
-            btnTxt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            btnTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             btnTxt.fontSize = 11;
             btnTxt.fontStyle = FontStyle.Bold;
             btnTxt.alignment = TextAnchor.MiddleCenter;

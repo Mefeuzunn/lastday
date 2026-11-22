@@ -854,7 +854,7 @@ namespace ProjectSurvival.UI
             rtTxt.sizeDelta = Vector2.zero;
 
             textLabel = txtObj.AddComponent<Text>();
-            textLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            textLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             textLabel.fontSize = 10;
             textLabel.fontStyle = FontStyle.Bold;
             textLabel.alignment = TextAnchor.MiddleCenter;
@@ -939,7 +939,7 @@ namespace ProjectSurvival.UI
             rtTxt.sizeDelta = Vector2.zero;
 
             Text txt = txtObj.AddComponent<Text>();
-            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             txt.fontSize = 13;
             txt.fontStyle = FontStyle.Bold;
             txt.alignment = TextAnchor.MiddleCenter;
@@ -975,7 +975,7 @@ namespace ProjectSurvival.UI
             rtTxt.sizeDelta = Vector2.zero;
 
             Text txt = txtObj.AddComponent<Text>();
-            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             txt.fontSize = 12;
             txt.fontStyle = FontStyle.Bold;
             txt.alignment = TextAnchor.MiddleCenter;
@@ -998,7 +998,7 @@ namespace ProjectSurvival.UI
             rt.anchoredPosition = pos;
 
             Text txt = txtObj.AddComponent<Text>();
-            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
             txt.fontSize = fontSize;
             txt.fontStyle = style;
             txt.alignment = anchor;

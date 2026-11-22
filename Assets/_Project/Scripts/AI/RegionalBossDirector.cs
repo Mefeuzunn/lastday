@@ -173,12 +173,15 @@ namespace ProjectSurvival.AI
                 BossArenaNode node = arenaNodes[i];
                 if (node.cacheInstance != null) continue;
 
-                GameObject cacheObj = new GameObject($"ApexVaultCache_{node.cacheId}");
+                GameObject cacheObj = new GameObject($"ApexVaultCache_{node.cacheId}", typeof(BoxCollider));
                 cacheObj.transform.position = node.cachePosition;
                 cacheObj.transform.rotation = Quaternion.identity;
 
                 ApexBossCacheInteractable cache = cacheObj.AddComponent<ApexBossCacheInteractable>();
-                cache.Configure(node.cacheId, node.bossId, node.blueprintId, node.blueprintName);
+                if (cache != null)
+                {
+                    cache.Configure(node.cacheId, node.bossId, node.blueprintId, node.blueprintName);
+                }
 
                 node.cacheInstance = cacheObj;
             }

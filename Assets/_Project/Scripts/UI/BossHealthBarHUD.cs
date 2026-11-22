@@ -254,7 +254,7 @@ namespace ProjectSurvival.UI
             rtTitle.offsetMax = Vector2.zero;
 
             bossTitleText = titleObj.AddComponent<Text>();
-            bossTitleText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            bossTitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             bossTitleText.fontSize = 14;
             bossTitleText.fontStyle = FontStyle.Bold;
             bossTitleText.alignment = TextAnchor.MiddleLeft;
@@ -270,7 +270,7 @@ namespace ProjectSurvival.UI
             rtSub.offsetMax = new Vector2(-16f, 0f);
 
             bossSubtitleText = subObj.AddComponent<Text>();
-            bossSubtitleText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            bossSubtitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             bossSubtitleText.fontSize = 11;
             bossSubtitleText.alignment = TextAnchor.MiddleRight;
             bossSubtitleText.color = new Color(0.70f, 0.74f, 0.78f);

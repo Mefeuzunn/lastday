@@ -114,7 +114,7 @@ namespace ProjectSurvival.UI
             floatingFeedbackText.fontStyle = FontStyle.Bold;
             floatingFeedbackText.color = Color.white;
             floatingFeedbackText.raycastTarget = false;
-            floatingFeedbackText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            floatingFeedbackText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
 
             textObj.SetActive(false);
         }
