@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db460d41e3bcd47cf9257576425de9f6, type: 3}
+  m_Name: weapon_crossbow
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectSurvival.Survival.ItemData
+  itemId: weapon_crossbow
+  itemName: Taktik Tatar Yayı
+  description: "Sessiz, yüksek kinetik hasarlı ve okları geri toplanabilir taktik tatar yayı."
+  icon: {fileID: 0}
+  itemType: 6
+  maxStack: 1
+  healthEffect: 0
+  hungerEffect: 0
+  thirstEffect: 0
+  infectionEffect: 0
+  weaponDamage: 95
+  maxDurability: 120
+  distractionNoiseRadius: 0
+  throwPrefab: {fileID: 0}

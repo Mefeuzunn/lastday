@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db460d41e3bcd47cf9257576425de9f6, type: 3}
+  m_Name: item_grilled_fish
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectSurvival.Survival.ItemData
+  itemId: item_grilled_fish
+  itemName: "Közde Göl Balığı"
+  description: "Ateşte nar gibi kızartılmış közde göl balığı. Açlığı ve susuzluğu yatıştırır, 120 saniye enerji yenilenmesi sağlar."
+  icon: {fileID: 0}
+  itemType: 0
+  maxStack: 10
+  healthEffect: 18
+  hungerEffect: 50
+  thirstEffect: 15
+  infectionEffect: 0
+  weaponDamage: 0
+  maxDurability: 0
+  distractionNoiseRadius: 0
+  throwPrefab: {fileID: 0}

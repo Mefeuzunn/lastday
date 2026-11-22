@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73c1e134c46c4e3a8662f5e6b25c08b, type: 3}
+  m_Name: recipe_bandage
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectSurvival.Survival.CraftingRecipe
+  recipeId: recipe_bandage
+  recipeName: "Sarg\u0131 Bezi"
+  description: "2 Bez Par\xE7as\u0131 ve 1 Alkol kullanarak t\u0131bbi sarg\u0131
+    bezi \xFCretir."
+  resultItem: {fileID: 11400000, guid: 7b8907e9bfd09459e857f22f927ac46d, type: 2}
+  resultCount: 1
+  ingredients:
+  - item: {fileID: 11400000, guid: d6102fb898e2c4a9bbc5f9e06d9f3fed, type: 2}
+    count: 2
+  - item: {fileID: 11400000, guid: 9428daa98d5904a7ea0e4f1daad6e0c3, type: 2}
+    count: 1

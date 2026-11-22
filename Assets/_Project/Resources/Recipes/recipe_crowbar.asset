@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73c1e134c46c4e3a8662f5e6b25c08b, type: 3}
+  m_Name: recipe_crowbar
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectSurvival.Survival.CraftingRecipe
+  recipeId: recipe_crowbar
+  recipeName: "A\u011F\u0131r Levye"
+  description: "3 Hurda + 1 Bez ile a\u011F\u0131r savunma levyesi \xFCretir."
+  resultItem: {fileID: 11400000, guid: 7c23a0df9a5074c2385e13e4776aa23f, type: 2}
+  resultCount: 1
+  ingredients:
+  - item: {fileID: 11400000, guid: 0cdcd10272dbd4f0e9dd18c22346654c, type: 2}
+    count: 3
+  - item: {fileID: 11400000, guid: d6102fb898e2c4a9bbc5f9e06d9f3fed, type: 2}
+    count: 1

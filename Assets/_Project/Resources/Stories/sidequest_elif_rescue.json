@@ -1,0 +1,190 @@
+{
+  "storyId": "sidequest_elif_rescue",
+  "storyTitle": "Yan Görev: Kayıp Kurye Elif",
+  "startNodeId": "node_elif_intro",
+  "nodes": [
+    {
+      "nodeId": "node_elif_intro",
+      "speakerName": "Elif (Kurye)",
+      "dialogueText": "Şşşt! Sonunda yaşayan biri! Çantamda güvenli bölgeye ulaştırmam gereken nadir bataryalar ve üretim şemaları var. Ancak bu kuzeydoğu sokağı Koşucu ve Çığırtkan zombilerle kaynıyor. Çatı merdiveninden aşağı inmeye korkuyorum... Bana yardım edebilir misin?",
+      "choices": [
+        {
+          "choiceText": "Sessiz Tahliye: Eğilerek beni takip et, seni sığınağa ulaştıracağım. (Kurtarma Görevi)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "elif", "amount": 3 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["elif_escort_started"],
+          "nextNodeId": "",
+          "triggerMission": {
+            "missionId": "mission_rescue_elif",
+            "missionType": "RescueNPC",
+            "title": "Kurye Elif'i Sığınağa Ulaştır",
+            "description": "Elif'i zombilere fark ettirmeden güvenli sığınağa kadar eskort et.",
+            "targetZoneId": "Zone_SafeHouse",
+            "targetItemId": "",
+            "targetCount": 1,
+            "duration": 0,
+            "onSuccessNodeId": "node_elif_rescued_success",
+            "onFailNodeId": "node_elif_failed"
+          }
+        },
+        {
+          "choiceText": "Gece Operasyonu: Karanlığın zombilerin görüşünü kısıtlamasından faydalanıp koşalım. (Sadece Gece)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Night",
+          "trustChanges": [
+            { "npcId": "elif", "amount": 4 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_battery",
+          "giveItemCount": 2,
+          "worldFlags": ["elif_night_op"],
+          "nextNodeId": "node_elif_night_success",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Şu an riskli. Sana 1 Konserve Yiyecek bırakıyorum, sabah ışığını bekle. (1 Konserve Harca)",
+          "requiredItemId": "item_canned_food",
+          "requiredItemCount": 1,
+          "consumeItem": true,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "elif", "amount": 2 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_scrap",
+          "giveItemCount": 3,
+          "worldFlags": ["elif_waiting_safe"],
+          "nextNodeId": "node_elif_wait_success",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_elif_rescued_success",
+      "speakerName": "Elif (Sığınakta)",
+      "dialogueText": "Başardık! Hayatımı kurtardın. Taşıdığım kargo çantası sağlam! İşte söz verdiğim piller ve sargı bezleri. Sığınakta artık telsiz ve batarya konusunda sıkıntı çekmeyeceğiz!",
+      "choices": [
+        {
+          "choiceText": "Ödülleri al ve teşekkür et.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": {
+            "healthChange": 15,
+            "hungerChange": 0,
+            "thirstChange": 0,
+            "infectionChange": 0
+          },
+          "giveItemId": "item_battery",
+          "giveItemCount": 2,
+          "worldFlags": ["elif_rescued_complete"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_elif_night_success",
+      "speakerName": "Elif",
+      "dialogueText": "Gece karanlığı taktiğin dahiyaneydi! Zombilerin yanından geçerken bizi hiçbiri fark etmedi. Çantamdaki yedek piller ve malzeme senin olsun!",
+      "choices": [
+        {
+          "choiceText": "Pilleri çantana koy.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_bandage",
+          "giveItemCount": 2,
+          "worldFlags": ["elif_night_complete"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_elif_wait_success",
+      "speakerName": "Elif",
+      "dialogueText": "Konserve için çok teşekkür ederim, karnım açlıktan zil çalıyordu. Çatıda saklanmaya devam edeceğim. Çantamdan çıkan bu hurda metalleri al, işine yarar!",
+      "choices": [
+        {
+          "choiceText": "Hurdaları al ve ayrıl.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["elif_waiting_confirmed"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_elif_failed",
+      "speakerName": "Telsiz Sinyali",
+      "dialogueText": "Elif zombi saldırısına uğradı veya takip rotasından koptu! Görev başarısız oldu.",
+      "choices": [
+        {
+          "choiceText": "Geri çekil.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["elif_lost"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    }
+  ]
+}

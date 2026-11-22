@@ -1,0 +1,174 @@
+{
+  "storyId": "sidequest_kerem_tank",
+  "storyTitle": "Yan Görev: Hurda Toplayıcısı ve Askeri Sandık",
+  "startNodeId": "node_kerem_intro",
+  "nodes": [
+    {
+      "nodeId": "node_kerem_intro",
+      "speakerName": "Kerem (Hurda Toplayıcısı)",
+      "dialogueText": "Pst! Hey, buraya eğil! Adım Kerem. Şu köşedeki askeri ikmal sandığını görüyor musun? İçinde yüksek kalibre mühimmat, bataryalar ve saf hurda var! Ama bir sorun var... Başında devasa bir Tank Zombi bekliyor. O yaratık tek vuruşta insanı ezer. Ne dersin, bir anlaşma yapalım mı?",
+      "choices": [
+        {
+          "choiceText": "Taktiksel İş Birliği: Ses Şişesi ile Tank'ı uzağa çekelim, sandığı paylaşalım. (1 Ses Şişesi Harca)",
+          "requiredItemId": "item_distraction_bottle",
+          "requiredItemCount": 1,
+          "consumeItem": true,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "kerem", "amount": 2 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_scrap",
+          "giveItemCount": 4,
+          "worldFlags": ["kerem_coop"],
+          "nextNodeId": "node_kerem_coop_success",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Ses Bombası kullanarak Tank Zombiyi şaşırtalım. (1 Ses Bombası Harca)",
+          "requiredItemId": "item_sound_bomb",
+          "requiredItemCount": 1,
+          "consumeItem": true,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "kerem", "amount": 3 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_scrap",
+          "giveItemCount": 5,
+          "worldFlags": ["kerem_coop"],
+          "nextNodeId": "node_kerem_coop_success",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Sen geride dur. Sandığı tek başıma alacağım, ödülün tamamı benim! (Yüksek Risk)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "kerem", "amount": -1 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["kerem_solo"],
+          "nextNodeId": "node_kerem_solo_warn",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Levyeyi göster: 'Bana elindeki hurdaları ve haritayı ver, yoksa seni zombilere atarım!' (Tehdit)",
+          "requiredItemId": "item_crowbar",
+          "requiredItemCount": 1,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "kerem", "amount": -4 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_scrap",
+          "giveItemCount": 3,
+          "worldFlags": ["kerem_hostile"],
+          "nextNodeId": "node_kerem_threat_success",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_kerem_coop_success",
+      "speakerName": "Kerem",
+      "dialogueText": "Dostum harika bir atıştı! Şişe patlayınca Tank zombi diğer sokağa koştu. Sandığı açıp ganimeti yarı yarıya paylaştık. İşte senin payın: 4x Hurda Metal ve ekstra batarya. Seninle çalışmak bir zevkti!",
+      "choices": [
+        {
+          "choiceText": "Ganimeti al ve yoluna devam et.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": {
+            "healthChange": 0,
+            "hungerChange": 0,
+            "thirstChange": 0,
+            "infectionChange": 0
+          },
+          "giveItemId": "item_battery",
+          "giveItemCount": 1,
+          "worldFlags": ["kerem_quest_finished"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_kerem_solo_warn",
+      "speakerName": "Kerem (Alaycı)",
+      "dialogueText": "Pekala kahraman, keyfin bilir! O koca canavar seni ikiye böldüğünde geride kalan eşyalarını ben toplarım. Bol şans!",
+      "choices": [
+        {
+          "choiceText": "Tank Zombi'nin arkasından dolanarak sandığa sız.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["solo_tank_challenge"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_kerem_threat_success",
+      "speakerName": "Kerem (Korkmuş)",
+      "dialogueText": "Tamam tamam, sakin ol! İndir o levyeyi! Al işte cebimdeki tüm hurdalar... Ama unutma, bu sokaklarda bir gün arkandan bıçaklanacaksın!",
+      "choices": [
+        {
+          "choiceText": "Hurdaları al ve Kerem'i terk et.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["kerem_robbed"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    }
+  ]
+}

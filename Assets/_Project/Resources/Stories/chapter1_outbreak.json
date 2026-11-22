@@ -1,0 +1,504 @@
+{
+  "storyId": "chapter1_outbreak",
+  "storyTitle": "Bölüm 1: Salgının İlk Günü - Hayatta Kalanlar",
+  "startNodeId": "node_doc_intro",
+  "nodes": [
+    {
+      "nodeId": "node_doc_intro",
+      "speakerName": "Dr. Aras (Yaralı)",
+      "dialogueText": "Öhö... Yaklaşma! Bekle... Sen de enfekte değilsin, değil mi? Kliniğimden kaçarken bacağımdan ağır yaralandım. Bacak dokusu hızla nekroze oluyor. Eğer müdahale etmezsek enfeksiyon tüm vücuduma yayılacak!",
+      "choices": [
+        {
+          "choiceText": "Elimdeki İlk Yardım Kitini veriyorum. (Hızlı Tıbbi Tedavi)",
+          "requiredItemId": "item_medkit",
+          "requiredItemCount": 1,
+          "consumeItem": true,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "aras", "amount": 2 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": {
+            "healthChange": 0,
+            "hungerChange": 0,
+            "thirstChange": 0,
+            "infectionChange": 0
+          },
+          "giveItemId": "item_water_bottle",
+          "giveItemCount": 1,
+          "worldFlags": ["doc_helped_medkit"],
+          "nextNodeId": "node_doc_quest_start",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Kitim yok ama kliniğe gidip gereken her şeyi getirebilirim! (Görevi Kabul Et)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "aras", "amount": -1 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["doc_begged"],
+          "nextNodeId": "node_doc_quest_start",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_doc_quest_start",
+      "speakerName": "Dr. Aras",
+      "dialogueText": "Dinle beni! Asıl kurtuluşumuz kliniğin laboratuvarında kilitli olan 'Deneysel Antiviral Serum'da saklı. Salgının ilk günlerinde geliştirdiğim bu formül enfeksiyonu hücresel düzeyde durduruyor. Kliniğin kilitli dolabından o serumu ve cerrahi çantayı alıp bana getirmelisin!",
+      "choices": [
+        {
+          "choiceText": "Kliniğe gidip Antiviral Serumu getireceğim. (Perde 1 Başlat)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["accepted_clinic_serum_mission"],
+          "nextNodeId": "",
+          "triggerMission": {
+            "missionId": "mission_clinic_serum",
+            "missionType": "ReachZone",
+            "title": "Klinikten Antiviral Serumu Al",
+            "description": "Zombilere yakalanmadan Eski Klinik bölgesine ulaş ve kilitli dolaptaki Antiviral Serumu ele geçir.",
+            "targetZoneId": "Zone_Clinic",
+            "targetItemId": "item_antiviral",
+            "targetCount": 1,
+            "duration": 0,
+            "onSuccessNodeId": "node_clinic_serum_taken",
+            "onFailNodeId": "node_mission_fail"
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "node_clinic_serum_taken",
+      "speakerName": "İç Ses",
+      "dialogueText": "Kliniğin laboratuvar dolabını açtın. Soğutuculu tüpün içinde parıldayan 'Deneysel Antiviral Serum' ve cerrahi aletleri çantana yerleştirdin. Kliniğin çıkışına doğru ilerlerken ara sokakta bir kadının ağlama ve yardım seslerini duyuyorsun...",
+      "choices": [
+        {
+          "choiceText": "Ara sokağa yönel ve sesin kaynağını kontrol et. (Perde 2: Zeynep)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_antiviral",
+          "giveItemCount": 1,
+          "worldFlags": ["retrieved_antiviral_serum"],
+          "nextNodeId": "node_zeynep_encounter",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_zeynep_encounter",
+      "speakerName": "Zeynep (Çaresiz)",
+      "dialogueText": "Lütfen dur! Yalvarırım silahını indirme ve dinle... Kardeşim Kerim'i bir zombi ısırdı. Nabzı hızla zayıflıyor ve gözleri kararmaya başladı. Elindeki o mavi tüpü görüyorum... O bir Antiviral Serum, değil mi? Kardeşimin dönüşmemesi için sadece birkaç dakikası kaldı! Yalvarırım onu bize ver!",
+      "choices": [
+        {
+          "choiceText": "Serumu Zeynep'in Kardeşine Ver. (Merhamet / Vicdani Seçim)",
+          "requiredItemId": "item_antiviral",
+          "requiredItemCount": 1,
+          "consumeItem": true,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "aras", "amount": -3 },
+            { "npcId": "zeynep", "amount": 4 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": {
+            "healthChange": 0,
+            "hungerChange": 0,
+            "thirstChange": 0,
+            "infectionChange": 0
+          },
+          "giveItemId": "item_scrap",
+          "giveItemCount": 3,
+          "worldFlags": ["saved_zeynep_brother"],
+          "nextNodeId": "node_zeynep_brother_saved",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Tıbbi Karışım Hazırla (1 Sargı Bezi + 1 Alkol). Serumu Dr. Aras için sakla!",
+          "requiredItemId": "item_bandage",
+          "requiredItemCount": 1,
+          "consumeItem": true,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "aras", "amount": 2 },
+            { "npcId": "zeynep", "amount": 3 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": {
+            "healthChange": 0,
+            "hungerChange": 0,
+            "thirstChange": 0,
+            "infectionChange": 0
+          },
+          "giveItemId": "item_battery",
+          "giveItemCount": 1,
+          "worldFlags": ["saved_both"],
+          "nextNodeId": "node_zeynep_hybrid_saved",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Üzgünüm, serum Dr. Aras'a ait. Kardeşine yardım edemem. (Görev Sadakati)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "aras", "amount": 3 },
+            { "npcId": "zeynep", "amount": -2 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["betrayed_zeynep"],
+          "nextNodeId": "node_zeynep_rejected",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_zeynep_brother_saved",
+      "speakerName": "Zeynep",
+      "dialogueText": "Tanrım... Nefesi düzeliyor, ateşi düşüyor! Kardeşimin hayatını kurtardın. Karşılığında sana borcumu asla ödeyemem ama şu telsizi ve sığınağın arka kapı acil durum kartını al. Dr. Aras'a serumu veremediğini söyleyeceksin biliyorum... Dikkatli ol!",
+      "choices": [
+        {
+          "choiceText": "Kartı ve telsizi alıp Dr. Aras'ın yanına dön.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_sound_bomb",
+          "giveItemCount": 1,
+          "worldFlags": ["zeynep_ally"],
+          "nextNodeId": "node_doc_final_encounter",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_zeynep_hybrid_saved",
+      "speakerName": "Zeynep",
+      "dialogueText": "İnanılmazsın! Alkol ve steril sargı beziyle hazırladığın o karışım dokudaki nekrozu durdurdu. Kardeşimin bilinci açılıyor! Hem serumunu korudun hem de bize umut oldun. Sana sığınağın yedek pilini ve telsiz frekansını veriyorum!",
+      "choices": [
+        {
+          "choiceText": "Teşekkür edip Dr. Aras'a serumu götür.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_distraction_bottle",
+          "giveItemCount": 2,
+          "worldFlags": ["master_healer"],
+          "nextNodeId": "node_doc_final_encounter",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_zeynep_rejected",
+      "speakerName": "Zeynep (Gözyaşları İçinde)",
+      "dialogueText": "Taş kalpli birisin! Kardeşim burada ölürken arkana bile bakmadan gidiyorsun... Unutma, bu acımasız dünyada yalnız kalacaksın!",
+      "choices": [
+        {
+          "choiceText": "Zeynep'i arkanda bırakarak Dr. Aras'a dön.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["ruthless_survivor"],
+          "nextNodeId": "node_doc_final_encounter",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_doc_final_encounter",
+      "speakerName": "Dr. Aras",
+      "dialogueText": "Geri döndün! Yüzündeki ifadeden anlıyorum... Neler yaşandı anlat bana! Serumu getirebildin mi?",
+      "choices": [
+        {
+          "choiceText": "İşte Antiviral Serum! Hemen çoğaltmaya başla. (Serumu Teslim Et)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": ["saved_both"],
+          "forbiddenFlags": ["saved_zeynep_brother"],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "aras", "amount": 3 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["delivered_serum"],
+          "nextNodeId": "node_act3_defense_prep",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Zeynep'e vermedim, serum sende. Kliniği kurtaralım! (Serumu Teslim Et)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": ["betrayed_zeynep"],
+          "forbiddenFlags": ["saved_zeynep_brother"],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "aras", "amount": 3 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["delivered_serum"],
+          "nextNodeId": "node_act3_defense_prep",
+          "triggerMission": null
+        },
+        {
+          "choiceText": "Üzgünüm Aras... Serumu yolda ölmek üzere olan masum bir gence verdim.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": ["saved_zeynep_brother"],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [
+            { "npcId": "aras", "amount": -4 }
+          ],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": ["confessed_serum_given"],
+          "nextNodeId": "node_act3_rescue_prep",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_act3_defense_prep",
+      "speakerName": "Dr. Aras",
+      "dialogueText": "Harikasın! Serumu santrifüje koyuyorum. Ancak bu eski jeneratör çalışırken inanılmaz bir gürültü yayıyor... Kahretsin, sokaktaki mutantlar ve çığırtkanlar sese doğru toplanıyor! Cihaz serumu çoğaltana kadar 45 saniye boyunca kapıyı savunmalıyız!",
+      "choices": [
+        {
+          "choiceText": "Pozisyon al ve 45 saniye boyunca kapıyı savun! (Perde 3 Final)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_sound_bomb",
+          "giveItemCount": 1,
+          "worldFlags": ["act3_defense_started"],
+          "nextNodeId": "",
+          "triggerMission": {
+            "missionId": "mission_clinic_defense",
+            "missionType": "SurviveTimer",
+            "title": "Klinik Savunması (45 Sn)",
+            "description": "Dr. Aras serumu çoğaltırken jeneratör sesine gelen zombi akınına karşı 45 saniye boyunca hayatta kal.",
+            "targetZoneId": "Zone_Clinic",
+            "targetItemId": "",
+            "targetCount": 1,
+            "duration": 45,
+            "onSuccessNodeId": "node_chapter1_complete_defense",
+            "onFailNodeId": "node_mission_fail"
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "node_act3_rescue_prep",
+      "speakerName": "Dr. Aras & Zeynep Telsizi",
+      "dialogueText": "Dr. Aras: 'Ne yaptın sen?! Kendi hayatımızı çöpe attın!' ... *CIZIRT* Telsizden Zeynep'in sesi duyuluyor: 'Yardım edin! Sokaktaki Tank zombi ve koşucular sığınağa doğru ilerliyor! Kardeşimle birlikte köşeye sıkıştık, bizi sığınağa ulaştırın!'",
+      "choices": [
+        {
+          "choiceText": "Zeynep ve Kardeşini Güvenli Sığınağa Ulaştır! (Perde 3 Final)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": null,
+          "giveItemId": "item_bandage",
+          "giveItemCount": 2,
+          "worldFlags": ["act3_rescue_started"],
+          "nextNodeId": "",
+          "triggerMission": {
+            "missionId": "mission_rescue_zeynep",
+            "missionType": "RescueNPC",
+            "title": "Zeynep ve Kardeşini Tahliye Et",
+            "description": "Zeynep ve kardeşini sokaktaki mutantlara yem etmeden Güvenli Sığınak bölgesine ulaştır.",
+            "targetZoneId": "Zone_SafeHouse",
+            "targetItemId": "",
+            "targetCount": 1,
+            "duration": 0,
+            "onSuccessNodeId": "node_chapter1_complete_rescue",
+            "onFailNodeId": "node_mission_fail"
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "node_chapter1_complete_defense",
+      "speakerName": "Dr. Aras (Kutlama)",
+      "dialogueText": "Başardık! Santrifüj işlemi tamamlandı ve 10 doz çoğaltılmış Antiviral Serum hazır! Bacağım tamamen iyileşti ve ilk geceyi zaferle kapattık. Bu şehrin senin gibi hayatta kalanlara ihtiyacı var. TEBRİKLER, BÖLÜM 1 TAMAMLANDI!",
+      "choices": [
+        {
+          "choiceText": "Şehri keşfetmeye ve sığınağı güçlendirmeye devam et. (Serbest Keşif)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": {
+            "healthChange": 30,
+            "hungerChange": 20,
+            "thirstChange": 20,
+            "infectionChange": -30
+          },
+          "giveItemId": "item_crowbar",
+          "giveItemCount": 1,
+          "worldFlags": ["chapter1_complete_doctor"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_chapter1_complete_rescue",
+      "speakerName": "Zeynep (Sığınakta)",
+      "dialogueText": "Sığınağın çelik kapısını kapattık... Güvendeyiz! Kardeşim dinleniyor ve Dr. Aras bile senin cesaretin karşısında yumuşadı. Bize ikinci bir hayat şansı verdin. Bu sığınak artık hepimizin evi. TEBRİKLER, BÖLÜM 1 TAMAMLANDI!",
+      "choices": [
+        {
+          "choiceText": "Yeni güne başla ve sığınağı yönet. (Serbest Keşif)",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": {
+            "healthChange": 30,
+            "hungerChange": 20,
+            "thirstChange": 20,
+            "infectionChange": -20
+          },
+          "giveItemId": "item_battery",
+          "giveItemCount": 2,
+          "worldFlags": ["chapter1_complete_rescue"],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    },
+    {
+      "nodeId": "node_mission_fail",
+      "speakerName": "Telsiz Sinyali (Kayıp)",
+      "dialogueText": "Hedefe ulaşılamadı veya kritik bir hayatta kalan kaybedildi... Zombilerin çığlıkları sokakları kaplıyor. Ancak pes edemezsin, yeniden toparlanmalı ve görevi tekrar denemelisin!",
+      "choices": [
+        {
+          "choiceText": "Yaralarını sar ve tekrar dene.",
+          "requiredItemId": "",
+          "requiredItemCount": 0,
+          "consumeItem": false,
+          "requiredFlags": [],
+          "forbiddenFlags": [],
+          "requiredTimeOfDay": "Any",
+          "trustChanges": [],
+          "minTrustRequired": 0,
+          "trustNpcId": "",
+          "statEffects": {
+            "healthChange": 20,
+            "hungerChange": 0,
+            "thirstChange": 0,
+            "infectionChange": 0
+          },
+          "giveItemId": "",
+          "giveItemCount": 0,
+          "worldFlags": [],
+          "nextNodeId": "END",
+          "triggerMission": null
+        }
+      ]
+    }
+  ]
+}
