@@ -1,14 +1,14 @@
 ﻿# PRE-PHASE 3 HOLISTIC OPTIMIZATION & DEFICIENCY AUDIT REPORT
 ================================================================================
-Generated: 2026-11-22 16:25:57 | Engine: Unity 6 (URP) | Target: Mobile 60 FPS
+Generated: 2026-11-22 16:38:27 | Engine: Unity 6 (URP) | Target: Mobile 60 FPS
 Scene: Assets/_Project/Scenes/Main_Prototype.unity (720x720m 3x3 Sector Grid)
 ================================================================================
 
 ## PILLAR 1: 720x720m MAP TOPOLOGY, VEHICLE DRIVABILITY & OUTPOST BUILD-ZONES
 --------------------------------------------------------------------------------
 * **Road Curb Snags (>0.14m vertical step):** 2 detected.
-  - [WARNING] Curbs_Boulevard_Right at (6.85, 0.10, 0.00) (Step: 0.20m)
   - [WARNING] Curbs_Boulevard_Left at (-6.85, 0.10, 0.00) (Step: 0.20m)
+  - [WARNING] Curbs_Boulevard_Right at (6.85, 0.10, 0.00) (Step: 0.20m)
   - *Action:* Chamfer curb colliders or add 45° invisible wheel transition wedges to prevent vehicle launch/snagging.
 
 * **Phase 3 Modular Base-Building Footprints (Unobstructed, Flat <=8°, NavMesh-Walkable):**
@@ -22,7 +22,7 @@ Scene: Assets/_Project/Scenes/Main_Prototype.unity (720x720m 3x3 Sector Grid)
 --------------------------------------------------------------------------------
 | Sector Container | GameObjects | MeshRenderers | Lights (Shadow) | ParticleSystems | Status & Budget Note |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Sector_0_0_Center | 3267 | 2610 | 62 (0) | 8 | ⚠️ High Density (Needs Tier 2 details culling) |
+| Sector_0_0_Center | 3275 | 2614 | 62 (0) | 8 | ⚠️ High Density (Needs Tier 2 details culling) |
 | Sector_0_1_North | 318 | 268 | 4 (0) | 0 | ✅ Budget Compliant (< 500 draw calls) |
 | Sector_1_0_East | 532 | 487 | 3 (0) | 1 | ✅ Budget Compliant (< 500 draw calls) |
 | Sector_1_1_NorthEast | 206 | 161 | 0 (0) | 0 | ✅ Budget Compliant (< 500 draw calls) |
