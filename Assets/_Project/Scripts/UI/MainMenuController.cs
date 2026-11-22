@@ -294,7 +294,8 @@ namespace ProjectSurvival.UI
                             childName.Equals("Interaction_Prompt", System.StringComparison.OrdinalIgnoreCase) ||
                             childName.Equals("ContextualInteraction_HUD", System.StringComparison.OrdinalIgnoreCase) ||
                             childName.Equals("Btn_JumpVault", System.StringComparison.OrdinalIgnoreCase) ||
-                            childName.Equals("Btn_PrimaryInteract", System.StringComparison.OrdinalIgnoreCase);
+                            childName.Equals("Btn_PrimaryInteract", System.StringComparison.OrdinalIgnoreCase) ||
+                            childName.Equals("Btn_CameraView", System.StringComparison.OrdinalIgnoreCase);
 
                         child.gameObject.SetActive(isDefaultGameplayWidget);
                     }

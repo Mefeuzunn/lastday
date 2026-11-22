@@ -109,6 +109,9 @@ namespace ProjectSurvival.Core
         public static event Action<float, float> OnCameraShakeRequested;
         public static void TriggerCameraShakeRequested(float intensity, float duration) => OnCameraShakeRequested?.Invoke(intensity, duration);
 
+        public static event Action<bool> OnCameraPerspectiveChanged;
+        public static void TriggerCameraPerspectiveChanged(bool isFirstPerson) => OnCameraPerspectiveChanged?.Invoke(isFirstPerson);
+
         public static event Action<GameObject> OnStealthTakedownPerformed;
         public static void TriggerStealthTakedownPerformed(GameObject targetZombie) => OnStealthTakedownPerformed?.Invoke(targetZombie);
 
@@ -261,6 +264,7 @@ namespace ProjectSurvival.Core
             OnPlayerDamaged = null;
             OnZombieAlertStateChanged = null;
             OnCameraShakeRequested = null;
+            OnCameraPerspectiveChanged = null;
             OnStealthTakedownPerformed = null;
             OnEmergencyPushPerformed = null;
             OnNoteCollected = null;

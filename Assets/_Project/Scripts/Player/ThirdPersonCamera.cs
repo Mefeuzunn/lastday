@@ -6,9 +6,30 @@ using ProjectSurvival.Survival;
 
 namespace ProjectSurvival.Player
 {
+    public enum CameraPerspective
+    {
+        ThirdPerson = 0,
+        FirstPerson = 1
+    }
+
     public class ThirdPersonCamera : MonoBehaviour
     {
         public static ThirdPersonCamera Instance { get; private set; }
+
+        [Header("Camera Perspective Switching")]
+        [SerializeField] private CameraPerspective currentPerspective = CameraPerspective.ThirdPerson;
+        [SerializeField] private float transitionDuration = 0.22f;
+        [SerializeField] private float fpsEyeHeightStanding = 1.66f;
+        [SerializeField] private float fpsEyeHeightCrouched = 1.18f;
+        [SerializeField] private float fpsMinPitch = -78f;
+        [SerializeField] private float fpsMaxPitch = 78f;
+
+        private float perspectiveBlend = 0f;
+        private CameraPerspective targetPerspective = CameraPerspective.ThirdPerson;
+        private CameraPerspective userPreferredPerspective = CameraPerspective.ThirdPerson;
+
+        public bool IsFirstPerson => targetPerspective == CameraPerspective.FirstPerson;
+        public CameraPerspective CurrentPerspective => targetPerspective;
 
         [Header("Target & Offsets")]
         [SerializeField] private Transform target;
@@ -108,6 +129,74 @@ namespace ProjectSurvival.Player
                 targetYaw = target.eulerAngles.y;
                 currentYaw = targetYaw;
                 targetPitch = 12f;
+            }
+            SetPerspective(userPreferredPerspective);
+        }
+
+        public void TogglePerspective()
+        {
+            SetPerspective(targetPerspective == CameraPerspective.ThirdPerson ? CameraPerspective.FirstPerson : CameraPerspective.ThirdPerson);
+        }
+
+        public void SetPerspective(CameraPerspective perspective)
+        {
+            targetPerspective = perspective;
+            userPreferredPerspective = perspective;
+            currentPerspective = perspective;
+
+            SetFirstPersonMeshVisibility(targetPerspective == CameraPerspective.FirstPerson);
+
+            ProceduralAudioManager.Instance?.PlayButtonClick();
+            MobileHapticManager.TriggerLight();
+
+            GameEvents.TriggerCameraPerspectiveChanged(targetPerspective == CameraPerspective.FirstPerson);
+
+            Debug.Log($"[ThirdPersonCamera] Perspective switched to: {targetPerspective}");
+        }
+
+        public void SetFirstPersonMeshVisibility(bool isFirstPerson)
+        {
+            if (target == null) FindTarget();
+            if (target == null) return;
+
+            Transform vm = target.Find("Visual_Model");
+            if (vm == null) return;
+
+            Renderer[] rends = vm.GetComponentsInChildren<Renderer>(true);
+            for (int i = 0; i < rends.Length; i++)
+            {
+                Renderer r = rends[i];
+                if (r == null) continue;
+                string goName = r.gameObject.name.ToLower();
+
+                // Check if weapon or weapon attachment
+                bool isWeapon = goName.Contains("weapon") || goName.Contains("axe") || goName.Contains("pistol") ||
+                                goName.Contains("shotgun") || goName.Contains("crossbow") || goName.Contains("gun") ||
+                                goName.Contains("socket") || goName.Contains("muzzle");
+
+                // Check if hands/arms
+                bool isHandsOrArms = goName.Contains("hand") || goName.Contains("forearm") || goName.Contains("arm");
+
+                // Hide head, neck, eyes, hair, upper torso/vest in FP
+                bool isHeadOrUpperBody = goName.Contains("head") || goName.Contains("neck") || goName.Contains("eye") ||
+                                         goName.Contains("hair") || goName.Contains("hat") || goName.Contains("torso") ||
+                                         goName.Contains("vest") || goName.Contains("backpack");
+
+                if (isFirstPerson)
+                {
+                    if (isHeadOrUpperBody && !isWeapon && !isHandsOrArms)
+                    {
+                        r.enabled = false;
+                    }
+                    else
+                    {
+                        r.enabled = true;
+                    }
+                }
+                else
+                {
+                    r.enabled = true;
+                }
             }
         }
 
@@ -290,6 +379,11 @@ namespace ProjectSurvival.Player
             if (ProjectSurvival.UI.MainMenuController.Instance != null && ProjectSurvival.UI.MainMenuController.Instance.IsMenuShowing) return;
             if (isInDialogue || Time.timeScale <= 0f) return;
 
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                TogglePerspective();
+            }
+
             HandleTouchAndMouseLook();
         }
 
@@ -328,7 +422,24 @@ namespace ProjectSurvival.Player
                 return;
             }
 
-            // Normal Third Person Over-The-Shoulder Camera
+            // 1. Perspective Transition Blend (0.22s SmoothStep Ease Curve)
+            float targetBlend = (targetPerspective == CameraPerspective.FirstPerson) ? 1.0f : 0.0f;
+            if (Mathf.Abs(perspectiveBlend - targetBlend) > 0.001f)
+            {
+                perspectiveBlend = Mathf.MoveTowards(perspectiveBlend, targetBlend, Time.deltaTime / transitionDuration);
+            }
+            else
+            {
+                perspectiveBlend = targetBlend;
+            }
+            float t = Mathf.SmoothStep(0f, 1f, perspectiveBlend);
+
+            // 2. Dynamic Pitch Clamping (-78° to +78° in FirstPerson, -30° to +55° in ThirdPerson)
+            float activeMinPitch = Mathf.Lerp(minPitch, fpsMinPitch, t);
+            float activeMaxPitch = Mathf.Lerp(maxPitch, fpsMaxPitch, t);
+            targetPitch = Mathf.Clamp(targetPitch, activeMinPitch, activeMaxPitch);
+
+            // 3. Rotation Smoothing (Strict Single Authority)
             currentYaw = Mathf.SmoothDampAngle(currentYaw, targetYaw, ref yawVelocity, rotationSmoothTime);
             currentPitch = Mathf.SmoothDampAngle(currentPitch, targetPitch, ref pitchVelocity, rotationSmoothTime);
 
@@ -345,20 +456,22 @@ namespace ProjectSurvival.Player
 
             Quaternion cameraRotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
 
-            // Pivot is at character head/shoulder
-            Vector3 pivot = target.position + Vector3.up * shoulderHeightOffset;
+            // 4. Anchor Eye Level vs Shoulder Interpolation
+            float eyeHeight = (stealthSystem != null && stealthSystem.IsCrouched) ? fpsEyeHeightCrouched : fpsEyeHeightStanding;
+            float activeHeightOffset = Mathf.Lerp(shoulderHeightOffset, eyeHeight, t);
+            float activeRightOffset = Mathf.Lerp(shoulderRightOffset, 0f, t);
 
-            // Shoulder lateral offset vector
-            Vector3 rightOffsetVec = cameraRotation * (Vector3.right * shoulderRightOffset);
+            Vector3 pivot = target.position + Vector3.up * activeHeightOffset;
+            Vector3 rightOffsetVec = cameraRotation * (Vector3.right * activeRightOffset);
             Vector3 originWithShoulder = pivot + rightOffsetVec;
 
-            // Determine desired distance based on state
+            // 5. Target Distance & FOV
             float targetDesiredDist = defaultDistance;
             float targetFOV = defaultFOV;
 
             if (isAiming)
             {
-                targetDesiredDist = aimDistance;
+                targetDesiredDist = (targetPerspective == CameraPerspective.FirstPerson) ? 0f : aimDistance;
                 targetFOV = (WeaponSystem.Instance != null && WeaponSystem.Instance.CurrentWeapon == WeaponType.Crossbow) ? 38f : aimFOV;
             }
             else if (playerController != null && playerController.IsSprinting)
@@ -372,35 +485,40 @@ namespace ProjectSurvival.Player
                 targetFOV = crouchFOV;
             }
 
-            // SphereCast collision check against walls/environment (filtering out player target & children)
+            // 6. SphereCast Collision Avoidance (Avoid wall clipping in interior safehouses)
             Vector3 backwardsDir = cameraRotation * -Vector3.forward;
             Ray ray = new Ray(originWithShoulder, backwardsDir);
 
             float resolvedDist = targetDesiredDist;
-            int hitCount = Physics.SphereCastNonAlloc(ray, collisionRadius, sphereCastBuffer, targetDesiredDist, collisionLayers, QueryTriggerInteraction.Ignore);
-            float closestHit = float.MaxValue;
-            for (int i = 0; i < hitCount; i++)
+            if (t < 0.99f)
             {
-                RaycastHit h = sphereCastBuffer[i];
-                if (h.collider == null) continue;
-                if (target != null && (h.collider.transform == target || h.collider.transform.IsChildOf(target))) continue;
-                if (h.collider.CompareTag("Player")) continue;
-
-                if (h.distance < closestHit)
+                int hitCount = Physics.SphereCastNonAlloc(ray, collisionRadius, sphereCastBuffer, targetDesiredDist, collisionLayers, QueryTriggerInteraction.Ignore);
+                float closestHit = float.MaxValue;
+                for (int i = 0; i < hitCount; i++)
                 {
-                    closestHit = h.distance;
+                    RaycastHit h = sphereCastBuffer[i];
+                    if (h.collider == null) continue;
+                    if (target != null && (h.collider.transform == target || h.collider.transform.IsChildOf(target))) continue;
+                    if (h.collider.CompareTag("Player")) continue;
+
+                    if (h.distance < closestHit)
+                    {
+                        closestHit = h.distance;
+                    }
+                }
+
+                if (closestHit < float.MaxValue)
+                {
+                    resolvedDist = Mathf.Clamp(closestHit - 0.12f, minDistance, targetDesiredDist);
                 }
             }
 
-            if (closestHit < float.MaxValue)
+            // 7. Blend Distance to 0 at Eye Level in First Person
+            float currentDistTarget = Mathf.Lerp(resolvedDist, 0f, t);
+            currentDistance = Mathf.SmoothDamp(currentDistance, currentDistTarget, ref distanceVelocity, 0.08f);
+            if (Mathf.Abs(currentDistance - currentDistTarget) < 0.001f)
             {
-                resolvedDist = Mathf.Clamp(closestHit - 0.12f, minDistance, targetDesiredDist);
-            }
-
-            currentDistance = Mathf.SmoothDamp(currentDistance, resolvedDist, ref distanceVelocity, 0.08f);
-            if (Mathf.Abs(currentDistance - resolvedDist) < 0.001f)
-            {
-                currentDistance = resolvedDist;
+                currentDistance = currentDistTarget;
                 distanceVelocity = 0f;
             }
 

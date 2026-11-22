@@ -179,7 +179,7 @@ namespace ProjectSurvival.Player
                     ExecuteDodge();
                 }
             }
-            if (vPressed) CombatSystem.Instance?.ExecuteEmergencyPush();
+            if (vPressed) ThirdPersonCamera.Instance?.TogglePerspective();
             if (iPressed) GameEvents.TriggerOpenBackpackRequested();
             if (bPressed) CraftingUI.Instance?.TogglePanel();
         }
@@ -427,8 +427,8 @@ namespace ProjectSurvival.Player
             Vector3 finalMove = currentHorizontalVelocity + (Vector3.up * verticalVelocity);
             characterController.Move(finalMove * Time.deltaTime);
 
-            // Smooth rotation towards movement direction or aim direction
-            if (ThirdPersonCamera.Instance != null && ThirdPersonCamera.Instance.IsAiming && camTransform != null)
+            // Smooth rotation towards movement direction or aim/look direction in FPS
+            if (ThirdPersonCamera.Instance != null && (ThirdPersonCamera.Instance.IsAiming || ThirdPersonCamera.Instance.IsFirstPerson) && camTransform != null)
             {
                 Vector3 aimLook = camTransform.forward;
                 aimLook.y = 0;
