@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using ProjectSurvival.Core;
 using ProjectSurvival.AI;
+using ProjectSurvival.Player;
 
 namespace ProjectSurvival.Environment
 {
