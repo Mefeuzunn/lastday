@@ -11,6 +11,7 @@ namespace ProjectSurvival.UI
     /// Displays urgent biohazard quarantine alert, civilian casualty telemetry (~340 survivors remaining),
     /// and survival instructions upon waking in StarterHouse_Safehome.
     /// Implements IModalWindow and integrates with ModalWindowManager and SafeAreaHandler.
+    /// Strictly adheres to: raycastTarget = false on all texts/decorations, raycastTarget = true ONLY on close button.
     /// </summary>
     public class SmartphoneScreenUI : MonoBehaviour, IModalWindow
     {
@@ -55,9 +56,43 @@ namespace ProjectSurvival.UI
             }
         }
 
+        private void Update()
+        {
+            if (!isOpen) return;
+
+            // Keyboard shortcut support: Esc or Space closes the modal cleanly
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
+            {
+                CloseModal();
+            }
+        }
+
         public void ShowSmartphone()
         {
             EnsureUIHierarchy();
+
+            // Refresh text contents cleanly
+            if (statusTimeText != null)
+            {
+                statusTimeText.text = "ACİL DURUM YAYINI • UYDU YEDEK AĞI | Batarya: %14";
+            }
+            if (alertHeaderText != null)
+            {
+                alertHeaderText.text = "⚠️ ACİL DURUM UYARISI";
+            }
+            if (alertSubheaderText != null)
+            {
+                alertSubheaderText.text = "KÜRESEL SALGIN RAPORU • BİYOLOJİK TEHLİKE";
+            }
+            if (alertBodyText != null)
+            {
+                alertBodyText.text =
+                    "KÜRESEL SALGIN RAPORU:\n" +
+                    "Zombiler tüm büyük şehirleri ele geçirdi. Uydu taramalarına göre bölgede hayatta kalan sadece ~340 İNSAN tespit edildi.\n\n" +
+                    "HAYATTA KALMA TALİMATLARI:\n" +
+                    "1. Mutfak dolabı ve buzdolabından yiyecek ve su bul.\n" +
+                    "2. Dışarı çıkarken ilk silahını bul.";
+            }
 
             isOpen = true;
             if (screenRoot != null)
@@ -90,9 +125,31 @@ namespace ProjectSurvival.UI
             // Mark phone checked on wake-up sequence and narrative
             ApartmentWakeUpSequence.Instance?.MarkPhoneChecked();
 
-            // Notify Starter Prologue Director
-            StarterPrologueDirector.Instance?.OnSmartphoneClosed();
-            Debug.Log("[SmartphoneScreenUI] Smartphone screen closed by user. Onboarding advanced.");
+            // Advance StarterPrologueDirector to Stage 2 (Scavenge Food & Water)
+            if (StarterPrologueDirector.Instance != null)
+            {
+                StarterPrologueDirector.Instance.OnSmartphoneClosed();
+            }
+            else
+            {
+                QuestTrackerHUD.Instance?.RefreshObjectiveDisplay(
+                    new StoryObjective
+                    {
+                        id = "prologue_2_scavenge",
+                        chapter = 0,
+                        chapterTitle = "BÖLÜM 0: İLK ERZAK",
+                        title = "Mutfak dolabı ve buzdolabından yiyecek ve su bul (0/2)",
+                        description = "Mutfak dolaplarından veya buzdolabından en az 1 Konserve ve 1 Su şişesi topla.",
+                        targetPosition = new Vector3(-2.2f, 0.85f, 2.5f),
+                        requiredFrequency = 0f,
+                        isTerminalInteraction = false,
+                        xpReward = 25
+                    }
+                );
+            }
+
+            GameManager.Instance?.SaveGame();
+            Debug.Log("[SmartphoneScreenUI] Smartphone screen closed by user. Onboarding advanced to supply scavenging.");
         }
 
         private void EnsureUIHierarchy()
@@ -117,7 +174,7 @@ namespace ProjectSurvival.UI
             rtRoot.anchorMax = Vector2.one;
             rtRoot.sizeDelta = Vector2.zero;
 
-            // Semi-transparent backdrop
+            // Semi-transparent backdrop (clicks do NOT block close button)
             GameObject backdrop = new GameObject("Backdrop");
             backdrop.transform.SetParent(screenRoot.transform, false);
             RectTransform rtBackdrop = backdrop.AddComponent<RectTransform>();
@@ -125,8 +182,8 @@ namespace ProjectSurvival.UI
             rtBackdrop.anchorMax = Vector2.one;
             rtBackdrop.sizeDelta = Vector2.zero;
             Image bgImg = backdrop.AddComponent<Image>();
-            bgImg.color = new Color(0.02f, 0.03f, 0.05f, 0.78f);
-            bgImg.raycastTarget = true; // Absorbs backdrop clicks
+            bgImg.color = new Color(0.02f, 0.03f, 0.05f, 0.82f);
+            bgImg.raycastTarget = false; // Prompt requirement: raycastTarget ONLY on close button
 
             // Phone Body Frame (Centered, 380x620)
             GameObject phoneBody = new GameObject("Phone_Body");
@@ -138,14 +195,14 @@ namespace ProjectSurvival.UI
             rtPhone.sizeDelta = new Vector2(380f, 620f);
 
             Image phoneImg = phoneBody.AddComponent<Image>();
-            phoneImg.color = new Color(0.07f, 0.09f, 0.12f, 0.98f); // Obsidian dark
-            phoneImg.raycastTarget = true;
+            phoneImg.color = new Color(0.07f, 0.09f, 0.12f, 0.98f);
+            phoneImg.raycastTarget = false;
 
             Outline phoneOutline = phoneBody.AddComponent<Outline>();
-            phoneOutline.effectColor = new Color(0.95f, 0.72f, 0.15f, 0.85f); // Amber glowing trim
+            phoneOutline.effectColor = new Color(0.95f, 0.72f, 0.15f, 0.85f);
             phoneOutline.effectDistance = new Vector2(2f, -2f);
 
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ;
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
             // Top Status Bar
             GameObject statusBar = new GameObject("Status_Bar");
@@ -163,7 +220,7 @@ namespace ProjectSurvival.UI
             statusTimeText.fontStyle = FontStyle.Bold;
             statusTimeText.alignment = TextAnchor.MiddleLeft;
             statusTimeText.color = new Color(0.75f, 0.82f, 0.90f);
-            statusTimeText.text = "ACİL DURUM YAYINI • KARANTİNA BÖLGESİ AĞI | Sinyal: Zayıf (Uydu Yedek) | Batarya: %14";
+            statusTimeText.text = "ACİL DURUM YAYINI • UYDU YEDEK AĞI | Batarya: %14";
             statusTimeText.raycastTarget = false;
 
             // Alert Box Container
@@ -177,7 +234,7 @@ namespace ProjectSurvival.UI
             rtAlert.sizeDelta = new Vector2(-24f, 96f);
 
             Image alertBoxImg = alertBox.AddComponent<Image>();
-            alertBoxImg.color = new Color(0.24f, 0.06f, 0.08f, 0.92f); // Crimson warning red
+            alertBoxImg.color = new Color(0.24f, 0.06f, 0.08f, 0.92f);
             alertBoxImg.raycastTarget = false;
 
             Outline alertOutline = alertBox.AddComponent<Outline>();
@@ -217,7 +274,7 @@ namespace ProjectSurvival.UI
             alertSubheaderText.fontStyle = FontStyle.Bold;
             alertSubheaderText.alignment = TextAnchor.MiddleCenter;
             alertSubheaderText.color = new Color(1f, 0.45f, 0.45f);
-            alertSubheaderText.text = "ŞEHİR GENELİ KARANTİNA & BİYOLOJİK TEHLİKE";
+            alertSubheaderText.text = "KÜRESEL SALGIN RAPORU • BİYOLOJİK TEHLİKE";
             alertSubheaderText.raycastTarget = false;
 
             // Body Message Container
@@ -236,15 +293,14 @@ namespace ProjectSurvival.UI
             alertBodyText.alignment = TextAnchor.UpperLeft;
             alertBodyText.color = new Color(0.92f, 0.94f, 0.98f);
             alertBodyText.text =
-                "TÜM VATANDAŞLARIN DİKKATİNE:\n\n" +
-                "Küresel çöküş tamamlandı. Şehir merkezleri ve yerleşim alanları mutasyona uğramış enfektelerin (zombilerin) kontrolü altındadır.\n\n" +
-                "Merkezi hükümet ve emniyet tahliye hatları çökmüştür. Bölgede teyitli hayatta kalan insan sayısı: ~340 kişi.\n\n" +
-                "ACİL HAYATTA KALMA TALİMATLARI:\n" +
-                "1. Evdeki dolapları ve buzdolabını kontrol et (yiyecek ve su topla).\n" +
-                "2. Ön kapıdan dışarı çık, sokaktaki barikatlardan ilk silahını edin ve güvenli sığınağa doğru ilerle.";
+                "KÜRESEL SALGIN RAPORU:\n" +
+                "Zombiler tüm büyük şehirleri ele geçirdi. Uydu taramalarına göre bölgede hayatta kalan sadece ~340 İNSAN tespit edildi.\n\n" +
+                "HAYATTA KALMA TALİMATLARI:\n" +
+                "1. Mutfak dolabı ve buzdolabından yiyecek ve su bul.\n" +
+                "2. Dışarı çıkarken ilk silahını bul.";
             alertBodyText.raycastTarget = false;
 
-            // Close Action Button
+            // Close Action Button: Strictly the only element with raycastTarget = true
             GameObject btnObj = new GameObject("Btn_CloseSmartphone");
             btnObj.transform.SetParent(phoneBody.transform, false);
             RectTransform rtBtn = btnObj.AddComponent<RectTransform>();
@@ -256,7 +312,7 @@ namespace ProjectSurvival.UI
 
             Image btnImg = btnObj.AddComponent<Image>();
             btnImg.color = new Color(0.85f, 0.18f, 0.20f, 0.95f);
-            btnImg.raycastTarget = true;
+            btnImg.raycastTarget = true; // Prompt requirement: raycastTarget ONLY on close button
 
             closeButton = btnObj.AddComponent<Button>();
             var colors = closeButton.colors;

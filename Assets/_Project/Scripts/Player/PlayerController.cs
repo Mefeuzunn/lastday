@@ -160,8 +160,14 @@ namespace ProjectSurvival.Player
             if (shiftDown) SetSprint(true);
             if (shiftUp) SetSprint(false);
             if (cPressed) stealthSystem?.ToggleCrouch();
-            if (ePressed) TriggerInteract();
-            if (fPressed) FlashlightController.Instance?.ToggleFlashlight();
+            if (ePressed || (fPressed && ProjectSurvival.Interaction.PlayerInteractionScanner.Instance != null && ProjectSurvival.Interaction.PlayerInteractionScanner.Instance.CurrentFocused != null))
+            {
+                TriggerInteract();
+            }
+            else if (fPressed)
+            {
+                FlashlightController.Instance?.ToggleFlashlight();
+            }
             if (spacePressed)
             {
                 if (ParkourVaultController.Instance != null)

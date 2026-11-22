@@ -549,12 +549,12 @@ namespace ProjectSurvival.Interaction
 
         private void HandleKeyboardShortcuts()
         {
-            // Primary verb: E key
-            if (Input.GetKeyDown(KeyCode.E))
+            // Primary verb: E or F key
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F))
             {
                 StartHoldOrExecute(0);
             }
-            else if (Input.GetKeyUp(KeyCode.E) && activeExecutingIndex == 0)
+            else if ((Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.F)) && activeExecutingIndex == 0)
             {
                 CancelActiveHold();
             }

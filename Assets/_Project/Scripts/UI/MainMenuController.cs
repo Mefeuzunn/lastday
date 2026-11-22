@@ -524,6 +524,11 @@ namespace ProjectSurvival.UI
 
             GameManager.Instance?.SetGameState(GameState.Gameplay);
 
+            if (ProjectSurvival.Narrative.ApartmentWakeUpSequence.Instance != null && !ProjectSurvival.Narrative.ApartmentWakeUpSequence.Instance.HasCheckedPhone)
+            {
+                ProjectSurvival.Narrative.ApartmentWakeUpSequence.Instance.StartWakeUpManually();
+            }
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

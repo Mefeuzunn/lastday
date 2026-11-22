@@ -77,8 +77,18 @@ namespace ProjectSurvival.Narrative
 
         private IEnumerator WakeUpSequenceRoutine()
         {
-            // Allow player to experience bedroom wake-up sequence and prompt
-            yield return new WaitForSeconds(4.0f);
+            // Allow player to experience bedroom wake-up sequence and naturally inspect the phone
+            yield return new WaitForSeconds(15.0f);
+
+            if (!isPrologueCompleted && currentStage == PrologueStage.Stage1_CheckPhone)
+            {
+                if (ApartmentWakeUpSequence.Instance == null || !ApartmentWakeUpSequence.Instance.HasCheckedPhone)
+                {
+                    GameEvents.TriggerObjectiveToastRequested("Yatağın yanındaki akıllı telefona bak.", 3.0f);
+                }
+            }
+
+            yield return new WaitForSeconds(15.0f);
 
             if (!isPrologueCompleted && currentStage == PrologueStage.Stage1_CheckPhone)
             {

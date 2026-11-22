@@ -269,13 +269,14 @@ namespace ProjectSurvival.EditorTools
                 phoneObj.transform.SetParent(roomObj.transform, false);
             }
             phoneObj.transform.localPosition = new Vector3(-1.6f, 0.72f, -1.8f);
-            phoneObj.transform.localScale = new Vector3(0.09f, 0.015f, 0.16f);
+            phoneObj.transform.localEulerAngles = new Vector3(0f, 25f, 0f);
+            phoneObj.transform.localScale = new Vector3(0.09f, 0.015f, 0.18f);
 
             Material phoneMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Materials/Mat_Window_LitCyan.mat") ??
                                 AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Materials/Mat_Beacon_Blue.mat");
             if (phoneMat != null) phoneObj.GetComponent<MeshRenderer>().sharedMaterial = phoneMat;
 
-            // Trigger SphereCollider for proximity interaction (radius = 1.65f)
+            // Trigger SphereCollider for proximity interaction (radius = 2.6f)
             SphereCollider phoneCol = phoneObj.GetComponent<SphereCollider>();
             if (phoneCol == null)
             {
@@ -284,14 +285,14 @@ namespace ProjectSurvival.EditorTools
                 phoneCol = phoneObj.AddComponent<SphereCollider>();
             }
             phoneCol.isTrigger = true;
-            phoneCol.radius = 1.65f;
+            phoneCol.radius = 2.6f;
 
             var phoneInteractable = phoneObj.GetComponent<SmartphoneNewsInteractable>();
             if (phoneInteractable == null) phoneInteractable = phoneObj.AddComponent<SmartphoneNewsInteractable>();
             phoneInteractable.SetObjectDetails("AKILLI TELEFON", "Haberlere Bak");
             phoneInteractable.SetPersistentId("starter_intro_smartphone");
 
-            // Point Light for pulsing emissive screen glow
+            // Point Light for pulsing emissive screen glow (Shadows: None)
             Transform glowTf = phoneObj.transform.Find("Screen_Glow_Light");
             if (glowTf == null)
             {
@@ -300,6 +301,7 @@ namespace ProjectSurvival.EditorTools
                 glowObj.transform.localPosition = new Vector3(0f, 0.04f, 0f);
                 Light l = glowObj.AddComponent<Light>();
                 l.type = LightType.Point;
+                l.shadows = LightShadows.None;
                 l.color = new Color(0.2f, 0.75f, 1.0f);
                 l.intensity = 0.8f;
                 l.range = 1.4f;
