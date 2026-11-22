@@ -62,6 +62,8 @@ namespace ProjectSurvival.EditorTools
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             Debug.Log("[Step2B_ControlsSetup] Successfully completed Step 2B Controls Overhaul in Main_Prototype.unity!");
+
+            Step2B_ControlsAudit.RunAudit();
         }
 
         private static void SetupTouchCameraLookPad(Transform parent)
@@ -443,4 +445,33 @@ namespace ProjectSurvival.EditorTools
         }
 #endif
     }
+
+#if UNITY_EDITOR
+    [InitializeOnLoad]
+    public static class Step2B_ControlsAutoSetup
+    {
+        private const string ExecutedPrefKey = "Phase2_Step2B_Controls_Setup_v1";
+
+        static Step2B_ControlsAutoSetup()
+        {
+            EditorApplication.delayCall += CheckAndSetup;
+        }
+
+        private static void CheckAndSetup()
+        {
+            if (SessionState.GetBool(ExecutedPrefKey, false)) return;
+            SessionState.SetBool(ExecutedPrefKey, true);
+
+            Debug.Log("[Step2B_ControlsAutoSetup] Automatically executing Step 2B Controls Overhaul...");
+            try
+            {
+                Step2B_ControlsSetup.SetupStep2B();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[Step2B_ControlsAutoSetup] Controls setup failed: {ex.Message}\n{ex.StackTrace}");
+            }
+        }
+    }
+#endif
 }

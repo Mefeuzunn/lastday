@@ -48,6 +48,7 @@ namespace ProjectSurvival.UI
             if (aimButton == null) aimButton = transform.Find("Btn_Aim")?.GetComponent<Button>();
             if (crouchButton == null) crouchButton = transform.Find("Btn_Crouch")?.GetComponent<Button>();
             if (sprintButton == null) sprintButton = transform.Find("Btn_Sprint")?.GetComponent<Button>();
+            if (jumpVaultButton == null) jumpVaultButton = transform.Find("Btn_JumpVault")?.GetComponent<Button>() ?? transform.parent?.Find("Btn_JumpVault")?.GetComponent<Button>();
 
             if (crouchButton != null && crouchOutline == null)
             {

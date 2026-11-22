@@ -216,7 +216,7 @@ namespace ProjectSurvival.Interaction
             Transform safeArea = parentCanvas.Find("SafeArea") ?? parentCanvas.Find("Safe_Area");
             Transform targetParent = safeArea != null ? safeArea : parentCanvas;
 
-            Transform existing = targetParent.Find("Btn_PrimaryInteract");
+            Transform existing = targetParent.Find("Btn_PrimaryInteract") ?? targetParent.Find("Action_Buttons_Panel/Btn_PrimaryInteract");
             if (existing != null)
             {
                 primaryButtonObj = existing.gameObject;
